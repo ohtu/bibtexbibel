@@ -1,4 +1,4 @@
-# bibtexbibel
+# bibtexbible
 ohtu syksy 2015 miniprojekti
 
 * [Backlog(Trello)](https://trello.com/b/VGq3K1EW/bitexbible)
