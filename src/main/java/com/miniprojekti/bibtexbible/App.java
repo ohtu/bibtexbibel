@@ -5,8 +5,8 @@ import com.miniprojekti.bibtexbible.ui.UI;
 
 public class App {
 
-    private UI ui;
-    private IO io;
+    private final UI ui;
+    private final IO io;
 
     public App(UI ui, IO io) {
         this.ui = ui;
