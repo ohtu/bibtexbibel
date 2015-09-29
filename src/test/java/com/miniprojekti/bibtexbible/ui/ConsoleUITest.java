@@ -16,13 +16,13 @@ public class ConsoleUITest {
     
     @Test
     public void getIntroReturnsStringThatContainsBibtexbible() {
-       String introLabel = consoleUI.getIntro();
+       String introLabel = consoleUI.getConsoleIntro();
        assertTrue(introLabel.toLowerCase().contains("bibtexbible"));
     }
     
     @Test
     public void getStartMenuReturnsStringThatContainsAllOptions() {
-       String menuLabel = consoleUI.getStartMenu();
+       String menuLabel = consoleUI.getConsoleMenu();
        assertTrue(menuLabel.toLowerCase().contains("new"));
        assertTrue(menuLabel.toLowerCase().contains("list"));
        assertTrue(menuLabel.toLowerCase().contains("update"));

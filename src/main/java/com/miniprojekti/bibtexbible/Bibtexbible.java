@@ -6,10 +6,7 @@ import com.miniprojekti.bibtexbible.ui.ConsoleUI;
 public class Bibtexbible {
 
     public static void main(String[] args) {
-
         App app = new App(new ConsoleUI(), new ConsoleIO());
-        app.run();
-
+        app.runConsoleApp();
     }
-
 }

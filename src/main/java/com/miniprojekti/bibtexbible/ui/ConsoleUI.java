@@ -1,22 +1,23 @@
 package com.miniprojekti.bibtexbible.ui;
 
 public class ConsoleUI implements UI {
-    
     /**
-     * Returns intro text
+     * Returns console intro as text
      * @return String
      */
-    public String getIntro() {
+    @Override
+    public String getConsoleIntro() {
         return "* * * * * * * * * * * * * * * * * * * * * * * * *\n" +
                " BIBTEXBIBLE - BibTex reference manager\n" +
                "* * * * * * * * * * * * * * * * * * * * * * * * *";
     }
         
     /**
-     * Returns the star menu options
+     * Returns console start menu with options as text
      * @return String
      */
-    public String getStartMenu() {
+    @Override
+    public String getConsoleMenu() {
         return "Choose a command:\n" +
                "1) Add a new reference\n" +
                "2) List all references\n" +
@@ -72,5 +73,4 @@ public class ConsoleUI implements UI {
     public String getAddressLabel() {
         return "Address:";
     }
-    
 }
