@@ -66,7 +66,7 @@ public class ConsoleUI implements UI {
     }
     
     /**
-     * Returns adress label
+     * Returns address label
      * @return String
      */
     public String getAddressLabel() {
