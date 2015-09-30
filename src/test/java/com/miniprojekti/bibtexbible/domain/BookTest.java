@@ -85,5 +85,4 @@ public class BookTest {
         assertEquals(true, properties instanceof HashMap);
         assertEquals(5, properties.size());
     }
-    
 }
