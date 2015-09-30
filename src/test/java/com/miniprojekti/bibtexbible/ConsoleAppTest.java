@@ -30,8 +30,12 @@ public class ConsoleAppTest {
         this.consoleUI = mock(ConsoleUI.class);
         this.consoleIO = mock(ConsoleIO.class);
         this.refController = mock(ReferenceController.class);
-        this.consoleApp = new App(this.consoleUI, this.consoleIO);
-        this.consoleApp.setReferenceController(refController);
+        
+        this.consoleApp = new App(
+            this.consoleUI, 
+            this.consoleIO,
+            this.refController
+        );
     }
 
     @BeforeClass
@@ -66,27 +70,27 @@ public class ConsoleAppTest {
     public void testConsoleAppCallsCreateReference() {
         when(this.consoleIO.readline()).thenReturn("1").thenReturn("0");
         this.consoleApp.runConsoleApp();
-        verify(this.refController).createReference(eq("hemmo"), eq("tuotoksen nimi"), eq(2015));
+        verify(this.refController).create();
     }
     
     @Test(timeout=1000)
     public void testConsoleAppCallsListReference() {
         when(this.consoleIO.readline()).thenReturn("2").thenReturn("0");
         this.consoleApp.runConsoleApp();
-        verify(this.refController).listReferences();
+        verify(this.refController).list();
     }
     
     @Test(timeout=1000)
     public void testConsoleAppCallsUpdateReference() {
         when(this.consoleIO.readline()).thenReturn("3").thenReturn("0");
         this.consoleApp.runConsoleApp();
-        verify(this.refController).updateReference();
+        verify(this.refController).update();
     }
     
     @Test(timeout=1000)
     public void testConsoleAppCallsDeleteReference() {
         when(this.consoleIO.readline()).thenReturn("4").thenReturn("0");
         this.consoleApp.runConsoleApp();
-        verify(this.refController).deleteReference();
+        verify(this.refController).delete();
     }
 }

@@ -1,32 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.miniprojekti.bibtexbible;
 
 import com.miniprojekti.bibtexbible.domain.Reference;
+import com.miniprojekti.bibtexbible.ui.UI;
 import java.util.List;
 
-/**
- *
- * @author teemu
- */
 public class ReferenceController {
     
-    public boolean createReference(String author, String title, int year) {
+    private UI ui;
+    
+    public ReferenceController(UI ui) {
+        this.ui = ui;
+    }
+    
+    public boolean create() {
         return true;
     }
     
-    public List<Reference> listReferences() {
+    public List<Reference> list() {
         return null;
     }
     
-    public boolean updateReference() {
+    public boolean update() {
         return true;
     }
     
-    public boolean deleteReference() {
+    public boolean delete() {
         return true;
     }
 }
