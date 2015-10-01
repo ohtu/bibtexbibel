@@ -1,91 +1,93 @@
 package com.miniprojekti.bibtexbible.ui;
 
-public class ConsoleUI implements UI {
+import com.miniprojekti.bibtexbible.domain.Reference;
+import com.miniprojekti.bibtexbible.io.IO;
+import java.util.List;
 
-    /**
-     * Returns console intro as text
-     *
-     * @return String
-     */
-    @Override
-    public String getConsoleIntro() {
-        return "* * * * * * * * * * * * * * * * * * * * * * * * *\n"
+public class ConsoleUI implements UI {
+    
+    private IO io;
+    
+    public ConsoleUI(IO io) {
+        this.io = io;
+    }
+    
+
+    private void printStartMenu() {
+        io.write("* * * * * * * * * * * * * * * * * * * * * * * * *\n"
                 + " BIBTEXBIBLE - BibTex reference manager\n"
-                + "* * * * * * * * * * * * * * * * * * * * * * * * *";
+                + "* * * * * * * * * * * * * * * * * * * * * * * * *");
     }
 
     /**
      * Returns create objects menu with options as text
-     *
      * @return String
      */
     @Override
-    public String getConsoleMenu() {
-        return "Choose a command:\n"
+    public int selectMenuOption() {
+        io.write("Choose a command:\n"
                 + "1) Add a new reference\n"
                 + "2) List all references\n"
                 + "3) Delete reference\n"
-                + "0) Exit";
+                + "0) Exit");
+        return io.readInteger();
     }
     
+    /**
+     * Returns menu with options for creating a specific refrence
+     * @return String 
+     */
     @Override
-    public String getConsoleCreateMenu() {
-        return "Create reference with entry type:\n"
+    public int selectReferenceType() {
+        io.write("Create reference with entry type:\n"
                 + "1) Book\n"
-                + "0) Return";
+                + "2) Article\n"
+                + "3) In Proceedigns\n"
+                + "0) Return");
+        while (true) {
+            int action = io.readInteger();
+            if (action >= 0 && action <= 3) {
+                return action;
+            } else {
+                io.write("Action not found. Try again.");
+            }
+        }
+        
     }
 
-    /**
-     * Returns author label
-     *
-     * @return String
-     */
-    public String getAuthorLabel() {
-        return "Author:";
+    @Override
+    public void printReferences(List<Reference> references) {
+        int i = 1;
+        for (Reference reference : references) {
+            io.write(i + ")" + reference.toString());
+            i++;
+        }
     }
 
-    /**
-     * Returns title label
-     *
-     * @return String
-     */
-    public String getTitleLabel() {
-        return "Title:";
+    @Override
+    public int selectReferenceToDelete(List<Reference> references) {
+        printReferences(references);
+        io.write("Select reference to delete:");
+        while (true) {
+            int id = io.readInteger() - 1;
+            if (id >=0 && id < references.size()) {
+                return id;
+            } else {
+                io.write("Refernce with id " + id + " not found. Try again");
+            }
+        }
     }
 
-    /**
-     * Returns year label
-     *
-     * @return String
-     */
-    public String getYearLabel() {
-        return "Year:";
+    @Override
+    public void init() {
+        printStartMenu();
     }
 
-    /**
-     * Returns publisher label
-     *
-     * @return String
-     */
-    public String getPublisherLabel() {
-        return "Publisher:";
+    @Override
+    public void exit() {
+        
     }
-
-    /**
-     * Returns book title label
-     *
-     * @return String
-     */
-    public String getBookTitleLabel() {
-        return "Book title:";
-    }
-
-    /**
-     * Returns adress label
-     *
-     * @return String
-     */
-    public String getAddressLabel() {
-        return "Address:";
-    }
+    
+    
+ 
 }
