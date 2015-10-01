@@ -74,13 +74,14 @@ public abstract class Reference {
 
     /**
      * Equals compares everything except ID
+     * @return 
      */
     @Override
     public boolean equals(Object obj) {
         if (obj.getClass() != this.getClass()) return false;
         Reference comp = (Reference) obj;
         for (String label : getPropertyDescriptions().keySet()) {
-            if (!comp.getProperty(label).equals(this.getProperty(label))) return false;
+            if (!(comp.getProperty(label)+"").equals(""+this.getProperty(label))) return false;
         }
         return true;
     }

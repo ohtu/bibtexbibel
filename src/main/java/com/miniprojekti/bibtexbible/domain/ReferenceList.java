@@ -14,7 +14,7 @@ public class ReferenceList {
 
     public void add(Reference reference) {
         if (lista.containsKey(reference.getID())) {
-            if (lista.get(reference.getID()) == reference) {
+            if (lista.get(reference.getID()).equals(reference)) {
                 return; // On lisätty jo aiemmin
             }
             // Duplicate IDs on different references

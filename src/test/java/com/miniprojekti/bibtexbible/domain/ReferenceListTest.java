@@ -74,6 +74,19 @@ public class ReferenceListTest {
     }
     
     @Test
+    public void testAddSameReferenceMultipleTimes() {
+        Book a1 = new Book("Mauri Rynnäs", "Teos1", 2015, "UGK");
+        Book a2 = new Book("Mauri Rynnäs", "Teos1", 2015, "UGK");
+        refList.add(a1);
+        System.out.println("size=" + refList.list().size());
+        refList.add(a2);
+        System.out.println("size=" + refList.list().size());
+        refList.add(a2);
+        System.out.println("size=" + refList.list().size());
+        assertTrue(refList.list().size() == 1);
+    }
+    
+    @Test
     public void testAddReferencesWithSameID() {
         Book a1 = new Book("Mauri Rynnäs", "Teos1", 2015, "UGK");
         Book a2 = new Book("Mauri Rynnäs", "Teos2", 2015, "UGK");
