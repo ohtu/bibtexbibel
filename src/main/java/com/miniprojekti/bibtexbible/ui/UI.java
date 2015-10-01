@@ -4,4 +4,5 @@ public interface UI {
 
     public String getConsoleIntro();
     public String getConsoleMenu();
+    public String getConsoleCreateMenu();
 }

@@ -11,6 +11,6 @@ public class Bibtexbible {
         UI ui = new ConsoleUI();
         IO io = new ConsoleIO();
         
-        new App(ui, io, new ReferenceController(ui)).runConsoleApp();
+        new App(ui, io, new ReferenceController(ui, io)).runConsoleApp();
     }
 }

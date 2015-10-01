@@ -15,7 +15,7 @@ public class ConsoleUI implements UI {
     }
 
     /**
-     * Returns console start menu with options as text
+     * Returns create objects menu with options as text
      *
      * @return String
      */
@@ -27,6 +27,13 @@ public class ConsoleUI implements UI {
                 + "3) Update existing reference\n"
                 + "4) Delete reference\n"
                 + "0) Exit";
+    }
+    
+    @Override
+    public String getConsoleCreateMenu() {
+        return "Create reference with entry type:\n"
+                + "1) Book\n"
+                + "0) Return";
     }
 
     /**
