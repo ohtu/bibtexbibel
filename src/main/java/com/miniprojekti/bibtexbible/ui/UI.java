@@ -1,8 +1,15 @@
 package com.miniprojekti.bibtexbible.ui;
 
-public interface UI {
+import com.miniprojekti.bibtexbible.domain.Reference;
+import java.util.List;
 
-    public String getConsoleIntro();
-    public String getConsoleMenu();
-    public String getConsoleCreateMenu();
+public interface UI {
+    
+    public void init();
+    public void exit();
+    
+    public int selectMenuOption();
+    public int selectReferenceType();
+    public int selectReferenceToDelete(List<Reference> references);
+    public void printReferences(List<Reference> refrences);
 }

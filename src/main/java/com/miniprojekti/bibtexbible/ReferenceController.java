@@ -3,82 +3,31 @@ package com.miniprojekti.bibtexbible;
 import com.miniprojekti.bibtexbible.domain.Book;
 import com.miniprojekti.bibtexbible.domain.Reference;
 import com.miniprojekti.bibtexbible.domain.ReferenceList;
-import com.miniprojekti.bibtexbible.io.IO;
 import com.miniprojekti.bibtexbible.ui.UI;
-import java.util.List;
 
 public class ReferenceController {
 
     private UI ui;
-    private IO io;
     private ReferenceList references;
 
-    public ReferenceController(UI ui, IO io) {
+    public ReferenceController(UI ui) {
         this.ui = ui;
-        this.io = io;
         references = new ReferenceList();
     }
 
-    public boolean create() {
-        boolean running = true;
-        while (running) {
-            this.io.write(this.ui.getConsoleCreateMenu());
-            String input = this.io.readline();
-            int action;
-            try {
-                action = Integer.parseInt(input);
-                running = routeCreate(action);
-            }
-            catch (NumberFormatException e) {
-                this.io.write("non integer input");
-                continue;
-            }
-        }
-        return true;
+    public void create() {
+        int type = ui.selectReferenceType();
+        Reference reference = createReference(type);
+        references.add(reference);
     }
 
-    public List<Reference> list() {
-        for (Reference reference : references.list()) {
-            io.write(reference.toString());
-        }
-        return null;
+    public void list() {
+        ui.printReferences(references.list());
     }
 
-    public boolean delete() {
-        int i = 1;
-        for (Reference reference : references.list()) {
-            io.write((i++) + ") " + reference.toString());
-        }
-        this.io.write("Select which one to delete?");
-        try {
-            int input = Integer.parseInt(this.io.readline()) - 1;
-            if (input >= 0 && input < references.list().size()) {
-                references.list().remove(input);
-                io.write("Reference deleted");
-            } else {
-                io.write("Invalid reference");
-            }
-        }
-        catch (NumberFormatException e) {
-            io.write("Invalid reference");
-        }
-        return true;
-    }
-
-    private boolean routeCreate(int action) {
-        switch (action) {
-            case (1):
-                this.io.write("Creating book reference");
-                references.add(createReference(1));
-                break;
-            case (0):
-                this.io.write("Returning");
-                return false;
-            default:
-                this.io.write("Not a valid command");
-                break;
-        }
-        return true;
+    public void delete() {
+        int id = ui.selectReferenceToDelete(references.list());
+        references.list().remove(id);
     }
 
     private Reference createReference(int type) {

@@ -1,6 +1,5 @@
 package com.miniprojekti.bibtexbible.domain;
 
-import static com.miniprojekti.misc.Tool.replaceScandisForBibTex;
 import java.util.HashMap;
 
 public class Book extends Reference {

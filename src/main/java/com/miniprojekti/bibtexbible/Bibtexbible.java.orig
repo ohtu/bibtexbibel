@@ -10,9 +10,13 @@ public class Bibtexbible {
 
     public static void main(String[] args) {
         IO io = new ConsoleIO();
-        UI ui = new ConsoleUI(io);
-        ReferenceController rc = new ReferenceController(ui);
-        App app = new App(ui, rc);
+<<<<<<< HEAD
+        ReferenceController rc = new ReferenceController(ui, io);
+        App app = new App(ui, io, rc);
         app.runConsoleApp();
+=======
+        UI ui = new ConsoleUI(io);
+        new App(ui, new ReferenceController(ui)).runConsoleApp();
+>>>>>>> 81d3cec1538757c580fd80ad558771c0f5e0c8a7
     }
 }

@@ -23,4 +23,15 @@ public class ConsoleIO implements IO {
     public String readline() {
         return scanner.nextLine();
     }
+    
+    @Override
+    public int readInteger() {
+        while (true) {
+            try {
+                return scanner.nextInt();  
+            } catch (Exception e) {
+                write("Non integer. Try again.");
+            } 
+        }
+    }
 }

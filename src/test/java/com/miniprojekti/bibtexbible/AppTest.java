@@ -19,39 +19,22 @@ import static org.mockito.Mockito.*;
  *
  * @author Teemu
  */
-public class ConsoleAppTest {
+public class AppTest {
 
     private App consoleApp;
     private ConsoleUI consoleUI;
     private ConsoleIO consoleIO;
     private ReferenceController refController;
 
-    public ConsoleAppTest() {
-        this.consoleUI = mock(ConsoleUI.class);
+    public AppTest() { 
         this.consoleIO = mock(ConsoleIO.class);
+        this.consoleUI = mock(ConsoleUI.class);
         this.refController = mock(ReferenceController.class);
 
         this.consoleApp = new App(
                 this.consoleUI,
-                this.consoleIO,
                 this.refController
         );
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
     }
 
     @Test(timeout = 1000)
@@ -68,21 +51,22 @@ public class ConsoleAppTest {
 
     @Test(timeout = 1000)
     public void testConsoleAppCallsCreateReference() {
-        when(this.consoleIO.readline()).thenReturn("1").thenReturn("0");
+        when(consoleUI.selectMenuOption()).thenReturn(1).thenReturn(0);
+        when(consoleUI.selectReferenceType()).thenReturn(0);
         this.consoleApp.runConsoleApp();
         verify(this.refController).create();
     }
 
     @Test(timeout = 1000)
     public void testConsoleAppCallsListReference() {
-        when(this.consoleIO.readline()).thenReturn("2").thenReturn("0");
+        when(consoleUI.selectMenuOption()).thenReturn(2).thenReturn(0);
         this.consoleApp.runConsoleApp();
         verify(this.refController).list();
     }
 
     @Test(timeout = 1000)
     public void testConsoleAppCallsDeleteReference() {
-        when(this.consoleIO.readline()).thenReturn("3").thenReturn("0");
+        when(consoleUI.selectMenuOption()).thenReturn(3).thenReturn(0);
         this.consoleApp.runConsoleApp();
         verify(this.refController).delete();
     }
