@@ -82,7 +82,7 @@ public class ConsoleAppTest {
 
     @Test(timeout = 1000)
     public void testConsoleAppCallsDeleteReference() {
-        when(this.consoleIO.readline()).thenReturn("4").thenReturn("0");
+        when(this.consoleIO.readline()).thenReturn("3").thenReturn("0");
         this.consoleApp.runConsoleApp();
         verify(this.refController).delete();
     }
