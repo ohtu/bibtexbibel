@@ -1,56 +1,55 @@
 package com.miniprojekti.bibtexbible.domain;
 
+import static com.miniprojekti.misc.Tool.replaceScandisForBibTex;
 import java.util.HashMap;
 
 public class Book extends Reference {
-
-    private String publisher;
-    private String address;
     
     public Book() {
         super();
+        setPropertyDescriptions();
     }
     
-    public Book(String author, String title, int year, String publisher, String address) {
+    public Book(String author, String title, int year, String publisher) {
         super(author, title, year);
-        this.publisher = publisher;
-        this.address = address;
+        setPropertyDescriptions();
+        setProperty("publisher", publisher);
+    }
+
+    /**
+     * Checks if label is an allowed property of Book
+     * If yes, sets value to label via supertype
+     */
+    @Override
+    public boolean setProperty(String label, String value) {
+        if (!getPropertyDescriptions().containsKey(label)) return false;
+        super.setProperty(label, value);
+        return true;
     }
     
     /**
-     * Returns all the properites with name and description of the Book model.
+     * Returns all the properties with name and description of the Book model.
      * The returned HashMap can be used in generating output labels to guide 
      * user before entering input.
+     * 
+     * Also used to check which are allowed labels for this type
      * 
      * @return HashMap<String, String>
      */
     @Override
-    public HashMap<String, String> getProperties() {
-        HashMap<String, String> properties = super.getProperties();
-        properties.put("publisher", "Publisher of the Book");
-        properties.put("address", "Address of the Publisher");
-        return properties;
+    public HashMap<String, String> getPropertyDescriptions() {
+        return super.getPropertyDescriptions();
     }
     
-    public String getPublisher() {
-        return publisher;
+    private void setPropertyDescriptions() {
+        HashMap<String, String> propertyDescriptions = super.getPropertyDescriptions();
+        propertyDescriptions.put("publisher", "Publisher of the Book");
+        propertyDescriptions.put("address", "Address of the Publisher");
+        propertyDescriptions.put("volume", "Volume of the Book");
+        propertyDescriptions.put("series", "Which series is this book a part of");
+        propertyDescriptions.put("edition", "Edition of the Book");
+        propertyDescriptions.put("month", "Month of the publication");
+        propertyDescriptions.put("note", "NOTE ??????????????????");
+        propertyDescriptions.put("key", "KEY ????????????????");
     }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" + "author=" + getAuthor() + ", title=" + getTitle() + ", year=" + getYear() + ", publisher=" + publisher + ", address=" + address + '}';
-    }
-       
 }
