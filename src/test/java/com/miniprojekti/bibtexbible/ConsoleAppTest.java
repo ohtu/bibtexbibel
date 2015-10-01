@@ -30,11 +30,11 @@ public class ConsoleAppTest {
         this.consoleUI = mock(ConsoleUI.class);
         this.consoleIO = mock(ConsoleIO.class);
         this.refController = mock(ReferenceController.class);
-        
+
         this.consoleApp = new App(
-            this.consoleUI, 
-            this.consoleIO,
-            this.refController
+                this.consoleUI,
+                this.consoleIO,
+                this.refController
         );
     }
 
@@ -54,40 +54,40 @@ public class ConsoleAppTest {
     public void tearDown() {
     }
 
-    @Test(timeout=1000)
+    @Test(timeout = 1000)
     public void testConsoleAppRunsAndExits() {
         when(this.consoleIO.readline()).thenReturn("0");
         this.consoleApp.runConsoleApp();
     }
-    
-    @Test(timeout=1000)
+
+    @Test(timeout = 1000)
     public void testConsoleAppDoesntCrashOnNonIntegerInput() {
         when(this.consoleIO.readline()).thenReturn("asdf").thenReturn("0");
         this.consoleApp.runConsoleApp();
     }
-    
-    @Test(timeout=1000)
+
+    @Test(timeout = 1000)
     public void testConsoleAppCallsCreateReference() {
         when(this.consoleIO.readline()).thenReturn("1").thenReturn("0");
         this.consoleApp.runConsoleApp();
         verify(this.refController).create();
     }
-    
-    @Test(timeout=1000)
+
+    @Test(timeout = 1000)
     public void testConsoleAppCallsListReference() {
         when(this.consoleIO.readline()).thenReturn("2").thenReturn("0");
         this.consoleApp.runConsoleApp();
         verify(this.refController).list();
     }
-    
-    @Test(timeout=1000)
+
+    @Test(timeout = 1000)
     public void testConsoleAppCallsUpdateReference() {
         when(this.consoleIO.readline()).thenReturn("3").thenReturn("0");
         this.consoleApp.runConsoleApp();
         verify(this.refController).update();
     }
-    
-    @Test(timeout=1000)
+
+    @Test(timeout = 1000)
     public void testConsoleAppCallsDeleteReference() {
         when(this.consoleIO.readline()).thenReturn("4").thenReturn("0");
         this.consoleApp.runConsoleApp();
