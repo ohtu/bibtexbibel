@@ -88,7 +88,7 @@ public abstract class Reference {
     
     @Override
     public String toString() {
-        String s = "@" + this.getClass() + ": ";
+        String s = "@" + getType(this) + ": ";
         for (String label : getPropertyDescriptions().keySet()) {
             String value = getProperty(label);
             if (value != null) s += label + " = " + value + ", ";
