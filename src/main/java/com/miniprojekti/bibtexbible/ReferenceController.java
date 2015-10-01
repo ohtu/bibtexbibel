@@ -12,7 +12,6 @@ public class ReferenceController {
     private UI ui;
     private IO io;
     private ReferenceList references;
-    
 
     public ReferenceController(UI ui, IO io) {
         this.ui = ui;
@@ -45,11 +44,24 @@ public class ReferenceController {
         return null;
     }
 
-    public boolean update() {
-        return true;
-    }
-
     public boolean delete() {
+        int i = 1;
+        for (Reference reference : references.list()) {
+            io.write((i++) + ") " + reference.toString());
+        }
+        this.io.write("Select which one to delete?");
+        try {
+            int input = Integer.parseInt(this.io.readline()) - 1;
+            if (input >= 0 && input < references.list().size()) {
+                references.list().remove(input);
+                io.write("Reference deleted");
+            } else {
+                io.write("Invalid reference");
+            }
+        }
+        catch (NumberFormatException e) {
+            io.write("Invalid reference");
+        }
         return true;
     }
 
@@ -80,6 +92,6 @@ public class ReferenceController {
             default:
                 break;
         }
-    return reference;
+        return reference;
     }
 }

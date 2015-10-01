@@ -25,7 +25,6 @@ public class ConsoleUITest {
        String menuLabel = consoleUI.getConsoleMenu();
        assertTrue(menuLabel.toLowerCase().contains("new"));
        assertTrue(menuLabel.toLowerCase().contains("list"));
-       assertTrue(menuLabel.toLowerCase().contains("update"));
        assertTrue(menuLabel.toLowerCase().contains("delete"));
        assertTrue(menuLabel.toLowerCase().contains("exit"));
     }

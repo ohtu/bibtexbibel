@@ -49,10 +49,6 @@ public class App {
                 this.controller.list();
                 break;
             case (3):
-                this.io.write("Updating a reference");
-                this.controller.update();
-                break;
-            case (4):
                 this.io.write("Deleting a reference");
                 this.controller.delete();
                 break;

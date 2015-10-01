@@ -24,8 +24,7 @@ public class ConsoleUI implements UI {
         return "Choose a command:\n"
                 + "1) Add a new reference\n"
                 + "2) List all references\n"
-                + "3) Update existing reference\n"
-                + "4) Delete reference\n"
+                + "3) Delete reference\n"
                 + "0) Exit";
     }
     
