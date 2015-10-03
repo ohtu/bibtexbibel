@@ -5,6 +5,7 @@
  */
 package com.miniprojekti.bibtexbible.domain;
 
+import java.util.HashMap;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -24,8 +25,15 @@ public class ReferenceListTest {
     
     private static class MockBook extends Reference {
 
-        public MockBook(String author, String title, int year) {
-            super(author, title, year);
+        public MockBook(String author, String title, String year) {
+            super();
+            HashMap<String, String> pD = getPropertyDescriptions();
+            pD.put("author", "");
+            pD.put("title", "");
+            pD.put("year", "");
+            setProperty("author", author);
+            setProperty("title", title);
+            setProperty("year", year);
         }
         
     }
@@ -45,8 +53,8 @@ public class ReferenceListTest {
     @Before
     public void setUp() {
         refList = new ReferenceList();
-        kirja1 = new MockBook("Tekija", "Titteli", 1984);
-        kirja2 = new MockBook("Tekija2", "Titteli2", 1985);
+        kirja1 = new MockBook("Tekija", "Titteli", "1984");
+        kirja2 = new MockBook("Tekija2", "Titteli2", "1985");
     }
     
     @After
@@ -75,23 +83,20 @@ public class ReferenceListTest {
     
     @Test
     public void testAddSameReferenceMultipleTimes() {
-        Book a1 = new Book("Mauri Rynnäs", "Teos1", 2015, "UGK");
-        Book a2 = new Book("Mauri Rynnäs", "Teos1", 2015, "UGK");
+        Book a1 = new Book("Mauri Rynnäs", "Teos1", "2015", "UGK");
+        Book a2 = new Book("Mauri Rynnäs", "Teos1", "2015", "UGK");
         refList.add(a1);
-        System.out.println("size=" + refList.list().size());
         refList.add(a2);
-        System.out.println("size=" + refList.list().size());
         refList.add(a2);
-        System.out.println("size=" + refList.list().size());
         assertTrue(refList.list().size() == 1);
     }
     
     @Test
     public void testAddReferencesWithSameID() {
-        Book a1 = new Book("Mauri Rynnäs", "Teos1", 2015, "UGK");
-        Book a2 = new Book("Mauri Rynnäs", "Teos2", 2015, "UGK");
-        Book a3 = new Book("Mauri Rynnäs", "Teos3", 2015, "UGK");
-        Book a4 = new Book("Mauri Rynnäs", "Teos4", 2015, "UGK");
+        Book a1 = new Book("Mauri Rynnäs", "Teos1", "2015", "UGK");
+        Book a2 = new Book("Mauri Rynnäs", "Teos2", "2015", "UGK");
+        Book a3 = new Book("Mauri Rynnäs", "Teos3", "2015", "UGK");
+        Book a4 = new Book("Mauri Rynnäs", "Teos4", "2015", "UGK");
         refList.add(a1);
         refList.add(a2);
         refList.add(a3);

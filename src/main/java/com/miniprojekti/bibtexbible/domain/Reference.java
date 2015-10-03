@@ -13,18 +13,14 @@ public abstract class Reference {
     public Reference() {
         this.propertyDescriptions = new HashMap<>();
         this.propertyValues = new HashMap<>();
-        propertyDescriptions.put("author", "Author of the Title");
-        propertyDescriptions.put("title", "The tile of the publication");
-        propertyDescriptions.put("year", "Publication year");
-    }
-    
-    public Reference(String author, String title, int year) {
-        this();
-        setProperty("author", author);
-        setProperty("title", title);
-        setProperty("year", ""+year);
     }
 
+    /**
+     * Returns all the properties with name and description of the Book model.
+     * The returned HashMap can be used in generating output labels to guide 
+     * user before entering input.
+     * Also used to check which are allowed labels for this type
+     */
     public HashMap<String, String> getPropertyDescriptions() {
         return propertyDescriptions;
     }

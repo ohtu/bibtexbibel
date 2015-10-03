@@ -1,5 +1,6 @@
 package com.miniprojekti.bibtexbible.domain;
 
+import static com.miniprojekti.misc.Tool.replaceScandisForBibTex;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class BookTest {
         typicalBook = new Book(
                 "Dostojevski, Fyodor",
                 "Crime and Punishment",
-                1866,
+                "1866",
                 "The Russian Messenger"
         );
         fullyDescribedBook = new Book();
@@ -84,7 +85,7 @@ public class BookTest {
     public void testGetPropertiesReturnsHashMapWithCorrecNumberOfProperties() {
         HashMap<String, String> properties = emptyBook.getPropertyDescriptions();
         assertEquals(true, properties instanceof HashMap);
-        assertEquals(11, properties.size());
+        assertEquals(12, properties.size());
     }
     
     @Test
@@ -112,11 +113,13 @@ public class BookTest {
             String[] rivi = split[i].split("\\=", 2);
             assertTrue(rivi.length == 2);
             String label = rivi[0].trim();
-            String value = rivi[1].trim();
-            value = value.substring(1);
-            value = value.substring(0, value.length()-2); // lopusta pois " ja ,
+            String expected = book.getProperty(label);
+            expected = replaceScandisForBibTex(expected);
+            String found = rivi[1].trim();
+            found = found.substring(1);
+            found = found.substring(0, found.length()-2); // lopusta pois " ja ,
             labelsFound.add(label);
-            assertTrue(book.getProperty(label).equals(value));
+            assertTrue(found.equals(expected));
         }
         assertTrue(labelsFound.size() == valueCount-2);
         assertTrue(b.endsWith("}"));

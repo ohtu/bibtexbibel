@@ -9,7 +9,11 @@ package com.miniprojekti.misc;
  *
  * @author asjuvone
  */
-public class Tool {
+public final class Tool {
+
+    private Tool() {
+    }
+
     public static String replaceScandisForBibTex(String s) {
         s = s.replace("ö", "\\\"{o}"); //   \"{o}
         s = s.replace("Ö", "\\\"{O}"); //   \"{O} arvattu - testaa!
