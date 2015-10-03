@@ -89,6 +89,12 @@ public class ProceedingsTest {
         fullyDescribedProceedings.setProperty("title", "Uolevi");
         assertTrue(fullyDescribedProceedings.getProperty("title").equals("Uolevi"));
     }
+    
+    @Test
+    public void testSetPropertyWrongLabel() {
+        typicalProceedings.setProperty("dummy1337", "testi");
+        assertNull(fullyDescribedProceedings.getProperty("dummy1337"));
+    }
 
     @Test
     public void testGetPropertiesReturnsHashMapWithCorrecNumberOfProperties() {

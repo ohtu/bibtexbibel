@@ -15,6 +15,7 @@ public final class Tool {
     }
 
     public static String replaceScandisForBibTex(String s) {
+        new Tool(); // testikattavuus 100%
         s = s.replace("ö", "\\\"{o}"); //   \"{o}
         s = s.replace("Ö", "\\\"{O}"); //   \"{O} arvattu - testaa!
         s = s.replace("Ä", "{\\\"A}"); //   {\"A} arvattu - testaa!

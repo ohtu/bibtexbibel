@@ -80,6 +80,12 @@ public class BookTest {
         fullyDescribedBook.setProperty("author", "Uolevi");
         assertTrue(fullyDescribedBook.getProperty("author").equals("Uolevi"));
     }
+    
+    @Test
+    public void testSetPropertyWrongLabel() {
+        typicalBook.setProperty("dummy1337", "testi");
+        assertNull(fullyDescribedBook.getProperty("dummy1337"));
+    }
 
     @Test
     public void testGetPropertiesReturnsHashMapWithCorrecNumberOfProperties() {

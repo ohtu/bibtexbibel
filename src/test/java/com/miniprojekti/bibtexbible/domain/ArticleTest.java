@@ -94,6 +94,12 @@ public class ArticleTest {
         fullyDescribedArticle.setProperty("author", "Uolevi");
         assertTrue(fullyDescribedArticle.getProperty("author").equals("Uolevi"));
     }
+    
+    @Test
+    public void testSetPropertyWrongLabel() {
+        typicalArticle.setProperty("dummy1337", "testi");
+        assertNull(fullyDescribedArticle.getProperty("dummy1337"));
+    }
 
     @Test
     public void testGetPropertiesReturnsHashMapWithCorrecNumberOfProperties() {
