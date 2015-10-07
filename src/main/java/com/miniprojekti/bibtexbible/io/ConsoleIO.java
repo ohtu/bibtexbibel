@@ -7,9 +7,9 @@ public class ConsoleIO implements IO {
     private final Scanner scanner;
 
     public ConsoleIO() {
-        scanner = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
-
+    
     public ConsoleIO(Scanner scanner) {
         this.scanner = scanner;
     }
@@ -28,7 +28,7 @@ public class ConsoleIO implements IO {
     public int readInteger() {
         while (true) {
             try {
-                return scanner.nextInt();  
+                return Integer.parseInt(scanner.nextLine());      
             } catch (Exception e) {
                 write("Non integer. Try again.");
             } 
