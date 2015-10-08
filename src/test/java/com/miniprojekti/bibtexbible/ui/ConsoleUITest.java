@@ -168,7 +168,7 @@ public class ConsoleUITest {
     
     @Test
     public void printFileWriteErrorCallsIoWrite() {
-        ui.printFileWriteError();
+        ui.printExportText();
         verify(io).write(anyString());
     }
 
