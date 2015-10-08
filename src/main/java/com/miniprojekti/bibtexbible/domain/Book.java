@@ -13,6 +13,7 @@ public class Book extends Reference {
     private void setPropertyDescriptions() {
         Map<String, String> propertyDescriptions = super.getPropertyDescriptions();
         propertyDescriptions.put("author", "Author of the Title");
+        propertyDescriptions.put("editor", "Editor of the Title");
         propertyDescriptions.put("title", "The tile of the publication");
         propertyDescriptions.put("year", "Publication year");
         propertyDescriptions.put("publisher", "Publisher of the Book");

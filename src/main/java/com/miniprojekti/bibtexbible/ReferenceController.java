@@ -7,7 +7,10 @@ import com.miniprojekti.bibtexbible.domain.Reference;
 import com.miniprojekti.bibtexbible.domain.ReferenceList;
 import com.miniprojekti.bibtexbible.ui.UI;
 import com.miniprojekti.bibtexbible.fileio.Writer;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ReferenceController {
 
@@ -41,13 +44,23 @@ public class ReferenceController {
     }
 
     public void export() {
-        String filename = ui.askFilename();
-        Writer writer = new Writer(filename);
-        for (Reference reference : references.list()) {
-            writer.write(reference.toBibTex());
+        Writer writer;
+        try {
+            if (references.list().size() != 0) {
+                String filename = ui.askFilename();
+                writer = new Writer(filename);
+                for (Reference reference : references.list()) {
+                    writer.write(reference.toBibTex());
+                }
+                writer.close();
+                ui.printLine("All references exported to file" + writer.getFilename());
+            } else {
+                ui.printLine("There are no references to export");
+            }
         }
-        writer.close();
-        ui.printFilename(writer.getFilename());
+        catch (IOException ex) {
+            ui.printLine("Exporting to a file was unsuccessful");
+        }
     }
 
     public List<Reference> getReferenceList() {
