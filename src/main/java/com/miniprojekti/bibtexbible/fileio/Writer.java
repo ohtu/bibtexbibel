@@ -23,6 +23,18 @@ public class Writer {
         }
     }
     
+    /*
+    * Testing purposes mainly
+    */
+    public Writer(File file) {
+        try {
+            fileWriter = new FileWriter(file);
+        }
+        catch (IOException ex) {
+            System.out.println("Something went wrong when opening the file");
+        }
+    }
+    
     public void writeLine(String line) {
         try {
             fileWriter.write(line);
