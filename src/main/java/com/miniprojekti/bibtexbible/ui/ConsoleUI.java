@@ -36,7 +36,7 @@ public class ConsoleUI implements UI {
 
     @Override
     public String askFilename() {
-        printExportText();
+        printLine("Give a file name to the exported document:");
         while (true) {
             String name = io.readline();
             if (!name.isEmpty()) {
@@ -45,11 +45,6 @@ public class ConsoleUI implements UI {
                 io.write("Invalid filename. Try Again.");
             }
         }
-    }
-
-    @Override
-    public void printFilename(String filename) {
-        io.write("All references exported to file " + filename);
     }
 
     @Override
@@ -83,10 +78,6 @@ public class ConsoleUI implements UI {
             io.write(reference.getPropertyDescriptions().get(label));
             reference.setProperty(label, askInput());
         }
-    }
-
-    public void printExportText() {
-        io.write("Give a file name to the exported document:");
     }
 
     // Tulostaa esittelytekstin
@@ -140,11 +131,6 @@ public class ConsoleUI implements UI {
 
     private String askInput() {
         return io.readline();
-    }
-
-    @Override
-    public void printFileWriteError() {
-        io.write("Writing to a file caused an error");
     }
 
 }

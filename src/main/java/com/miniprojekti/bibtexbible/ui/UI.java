@@ -22,8 +22,4 @@ public interface UI {
     public void setProperties(Reference reference);
 
     public String askFilename();
-
-    public void printFilename(String filename);
-
-    public void printFileWriteError();
 }
