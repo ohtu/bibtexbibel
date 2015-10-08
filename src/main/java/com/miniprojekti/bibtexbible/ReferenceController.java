@@ -44,19 +44,22 @@ public class ReferenceController {
     }
 
     public void export() {
-        String filename = ui.askFilename();
-
         Writer writer;
         try {
-            writer = new Writer(filename);
-            for (Reference reference : references.list()) {
-                writer.write(reference.toBibTex());
+            if (references.list().size() != 0) {
+                String filename = ui.askFilename();
+                writer = new Writer(filename);
+                for (Reference reference : references.list()) {
+                    writer.write(reference.toBibTex());
+                }
+                writer.close();
+                ui.printLine("All references exported to file" + writer.getFilename());
+            } else {
+                ui.printLine("There are no references to export");
             }
-            writer.close();
-            ui.printFilename(writer.getFilename());
         }
         catch (IOException ex) {
-            ui.printFileWriteError();
+            ui.printLine("Exporting to a file was unsuccessful");
         }
     }
 
