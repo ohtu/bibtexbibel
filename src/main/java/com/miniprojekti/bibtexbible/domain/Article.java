@@ -50,8 +50,6 @@ public class Article extends Reference {
         propertyDescriptions.put("volume", "Volume of the Journal");
         propertyDescriptions.put("number", "Number of the Journal");
         propertyDescriptions.put("month", "Month of the publication");
-        propertyDescriptions.put("note", "NOTE ??????????????????");
-        propertyDescriptions.put("key", "KEY ????????????????");
     }
     
 }

@@ -75,20 +75,13 @@ public class ReferenceListTest {
     }
 
     @Test
-    public void testAddReferenceDoesntReplaceOldItems() {
-        refList.add(kirja1);
-        refList.add(kirja2);
-        assertTrue(refList.list().contains(kirja1));
-    }
-
-    @Test
     public void testAddSameReferenceMultipleTimes() {
         Book a1 = new Book("Mauri Rynnäs", "Teos1", "2015", "UGK");
         Book a2 = new Book("Mauri Rynnäs", "Teos1", "2015", "UGK");
         refList.add(a1);
         refList.add(a2);
         refList.add(a2);
-        assertTrue(refList.list().size() == 1);
+        assertTrue(refList.list().size() == 3);
     }
 
     @Test
@@ -101,7 +94,7 @@ public class ReferenceListTest {
         refList.add(a2);
         refList.add(a3);
         refList.add(a4);
-        assertEquals(1, refList.list().size());
+        assertEquals(4, refList.list().size());
     }
 
     @Test
@@ -127,12 +120,6 @@ public class ReferenceListTest {
         assertFalse(refList.list().contains(kirja2));
     }
 
-    @Test
-    public void testDeleteWhenNotFoundDoesntAccidentallyDeleteOtherItems() {
-        refList.add(kirja1);
-        refList.delete(kirja2.getID());
-        assertTrue(refList.list().contains(kirja1));
-    }
 
     @Test
     public void testDeleteMultipleReferences() {

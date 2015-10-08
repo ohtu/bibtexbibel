@@ -105,7 +105,7 @@ public class ArticleTest {
     public void testGetPropertiesReturnsHashMapWithCorrecNumberOfProperties() {
         HashMap<String, String> properties = emptyArticle.getPropertyDescriptions();
         assertEquals(true, properties instanceof HashMap);
-        assertEquals(10, properties.size());
+        assertEquals(8, properties.size());
     }
     
     @Test

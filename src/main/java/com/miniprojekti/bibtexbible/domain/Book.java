@@ -28,7 +28,7 @@ public class Book extends Reference {
         return true;
     }
     
-
+    
     
     private void setPropertyDescriptions() {
         HashMap<String, String> propertyDescriptions = super.getPropertyDescriptions();
@@ -42,7 +42,5 @@ public class Book extends Reference {
         propertyDescriptions.put("series", "Which series is this book a part of");
         propertyDescriptions.put("edition", "Edition of the Book");
         propertyDescriptions.put("month", "Month of the publication");
-        propertyDescriptions.put("note", "NOTE ??????????????????");
-        propertyDescriptions.put("key", "KEY ????????????????");
     }
 }

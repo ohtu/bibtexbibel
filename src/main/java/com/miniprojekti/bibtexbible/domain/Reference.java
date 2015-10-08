@@ -2,17 +2,21 @@ package com.miniprojekti.bibtexbible.domain;
 
 import static com.miniprojekti.misc.Tool.getType;
 import static com.miniprojekti.misc.Tool.replaceScandisForBibTex;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class Reference {
 
     private String id;
     private final HashMap<String, String> propertyDescriptions;
     private final HashMap<String, String> propertyValues;
+    private final List<String> requiredValues;
 
     public Reference() {
         this.propertyDescriptions = new HashMap<>();
         this.propertyValues = new HashMap<>();
+        this.requiredValues = new ArrayList<>();
     }
 
     /**
@@ -20,6 +24,8 @@ public abstract class Reference {
      * The returned HashMap can be used in generating output labels to guide
      * user before entering input. Also used to check which are allowed labels
      * for this type
+     *
+     * @return HashMap, which contains descriptions for labels
      */
     public HashMap<String, String> getPropertyDescriptions() {
         return propertyDescriptions;
@@ -30,24 +36,10 @@ public abstract class Reference {
         return true; // boolean, jotta sub luokat voi tarkistaa että label sallittu
     }
 
-    /*
-     * ID yleensä muotoa "Tolk1964" (Tolkien, 1964 julkaisu)
-     */
     public String getID() {
-        if (id == null) {
-            if (getProperty("author") == null) {
-                return "empty";
-            }
-            id = getProperty("author").substring(0, 4);
-            id += getProperty("year");
-        }
         return id;
     }
 
-    /**
-     * We may run into duplicate IDs - in this case the ID of a Reference may
-     * need to be changed
-     */
     public void setID(String id) {
         this.id = id;
     }
@@ -93,6 +85,7 @@ public abstract class Reference {
     @Override
     public String toString() {
         String s = "@" + getType(this) + ": ";
+        s += "Key" + " = " + getID() + ", ";
         for (String label : getPropertyDescriptions().keySet()) {
             String value = getProperty(label);
             if (value != null) {

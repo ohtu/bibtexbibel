@@ -49,7 +49,5 @@ public class Proceedings extends Reference {
         propertyDescriptions.put("publisher", "Publisher of the Proceedings");
         propertyDescriptions.put("organization", "Conference organizer");
         propertyDescriptions.put("month", "Month of the publication");
-        propertyDescriptions.put("note", "NOTE ??????????????????");
-        propertyDescriptions.put("key", "KEY ????????????????");
     }
 }

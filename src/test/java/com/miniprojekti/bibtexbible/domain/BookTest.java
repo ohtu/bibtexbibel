@@ -91,7 +91,7 @@ public class BookTest {
     public void testGetPropertiesReturnsHashMapWithCorrecNumberOfProperties() {
         HashMap<String, String> properties = emptyBook.getPropertyDescriptions();
         assertEquals(true, properties instanceof HashMap);
-        assertEquals(12, properties.size());
+        assertEquals(10, properties.size());
     }
     
     @Test

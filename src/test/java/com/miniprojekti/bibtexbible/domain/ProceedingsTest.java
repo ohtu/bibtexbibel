@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  * @author asjuvone
  */
 public class ProceedingsTest {
-   
+
     Proceedings emptyProceedings;
     Proceedings typicalProceedings;
     Proceedings fullyDescribedProceedings;
@@ -45,11 +45,11 @@ public class ProceedingsTest {
         }
         labels = emptyProceedings.getPropertyDescriptions().keySet();
     }
-    
+
     /*
-    * Allowed labels for proceedings should be the same regardless
-    * of constructor used, set properties, etc.
-    */
+     * Allowed labels for proceedings should be the same regardless
+     * of constructor used, set properties, etc.
+     */
     @Test
     public void testProceedingsLabelsAreTheSame() {
         Set<String> labels2 = typicalProceedings.getPropertyDescriptions().keySet();
@@ -61,7 +61,7 @@ public class ProceedingsTest {
             assertTrue(labels3.contains(label));
         }
     }
-    
+
     @Test
     public void testConstructorSetsPropertyValuesCorrectly() {
         assertTrue(typicalProceedings.getProperty("title").equals("Taloyhtiön vuosikokous"));
@@ -71,11 +71,13 @@ public class ProceedingsTest {
         for (String label : labels) {
             // varmistetaan samalla ettei emptyproceedingsilta löydy mitään
             assertTrue(emptyProceedings.getProperty(label) == null);
-            if (typicalProceedings.getProperty(label) != null) count++;
+            if (typicalProceedings.getProperty(label) != null) {
+                count++;
+            }
         }
-        assertTrue(count==2);
+        assertTrue(count == 2);
     }
-    
+
     @Test
     public void testSetProperty() {
         for (String label : labels) {
@@ -83,13 +85,13 @@ public class ProceedingsTest {
             assertTrue(value.equals(label + "x"));
         }
     }
-    
+
     @Test
     public void testSetPropertyWhenOverwriting() {
         fullyDescribedProceedings.setProperty("title", "Uolevi");
         assertTrue(fullyDescribedProceedings.getProperty("title").equals("Uolevi"));
     }
-    
+
     @Test
     public void testSetPropertyWrongLabel() {
         typicalProceedings.setProperty("dummy1337", "testi");
@@ -100,29 +102,29 @@ public class ProceedingsTest {
     public void testGetPropertiesReturnsHashMapWithCorrecNumberOfProperties() {
         HashMap<String, String> properties = emptyProceedings.getPropertyDescriptions();
         assertEquals(true, properties instanceof HashMap);
-        assertEquals(12, properties.size());
+        assertEquals(10, properties.size());
     }
-    
+
     @Test
     public void testToString() {
         assertTrue(typicalProceedings.toString().contains("Taloyht"));
         assertTrue(typicalProceedings.toString().contains("2015"));
     }
-    
+
     @Test
     public void testToBibTex() {
-        testProceedingsToBibTex(typicalProceedings, 2+2);
-        testProceedingsToBibTex(fullyDescribedProceedings, labels.size()+2);
+        testProceedingsToBibTex(typicalProceedings, 2 + 2);
+        testProceedingsToBibTex(fullyDescribedProceedings, labels.size() + 2);
         // test empty proceedings to bibtex?
     }
-    
+
     private void testProceedingsToBibTex(Proceedings proceedings, int valueCount) {
         String b = proceedings.toBibTex();
         String[] split = b.split("\r\n");
         assertTrue(split.length == valueCount);
         assertTrue(split[0].startsWith("@Proceedings{")); // any ID is ok
         HashSet<String> labelsFound = new HashSet<>();
-        for (int i=1; i<split.length-1; i++) {
+        for (int i = 1; i < split.length - 1; i++) {
             String[] rivi = split[i].split("\\=", 2);
             assertTrue(rivi.length == 2);
             String label = rivi[0].trim();
@@ -130,11 +132,11 @@ public class ProceedingsTest {
             expected = replaceScandisForBibTex(expected);
             String found = rivi[1].trim();
             found = found.substring(1);
-            found = found.substring(0, found.length()-2); // lopusta pois " ja ,
+            found = found.substring(0, found.length() - 2); // lopusta pois " ja ,
             labelsFound.add(label);
             assertTrue(found.equals(expected));
         }
-        assertTrue(labelsFound.size() == valueCount-2);
+        assertTrue(labelsFound.size() == valueCount - 2);
         assertTrue(b.endsWith("}"));
     }
 }

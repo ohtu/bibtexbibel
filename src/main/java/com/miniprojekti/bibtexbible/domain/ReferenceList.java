@@ -3,6 +3,7 @@ package com.miniprojekti.bibtexbible.domain;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class ReferenceList {
 
@@ -13,11 +14,18 @@ public class ReferenceList {
     }
 
     public void add(Reference reference) {
+        while (lista.containsKey(reference.getID()) || reference.getID() == null) {
+            // täytyy generoida uusi id
+            String key = reference.getID();
+            reference.setID("Ref" + new Random().nextInt(1000));
+        }
         lista.put(reference.getID(), reference);
     }
 
     public void delete(String key) {
-        lista.remove(key);
+        if (lista.containsKey(key)) {
+            lista.remove(key);
+        }
     }
 
     public void delete(int index) {
