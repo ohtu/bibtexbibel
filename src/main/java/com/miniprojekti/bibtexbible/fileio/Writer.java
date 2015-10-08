@@ -9,72 +9,36 @@ public class Writer {
     private FileWriter fileWriter;
     private String filename;
 
-    public Writer(String filename) {
+    public Writer(String filename) throws IOException {
         if (!filename.endsWith(".bib")) {
             filename += ".bib";
         }
-        this.filename = filename;
-        try {
-            fileWriter = new FileWriter(new File(filename));
-        }
-        catch (IOException ex) {
-            System.out.println("Something went wrong with the file creation");
-        }
+        fileWriter = new FileWriter(new File(filename));
     }
 
     /*
      * Testing purposes mainly
      */
-    public Writer(File file) {
-        try {
-            fileWriter = new FileWriter(file);
-        }
-        catch (IOException ex) {
-            System.out.println("Something went wrong when opening the file");
-        }
+    public Writer(File file) throws IOException {
+        fileWriter = new FileWriter(file);
     }
 
-    public void writeLine(String line) {
-        try {
-            fileWriter.write(line);
-            fileWriter.write(System.lineSeparator());
-        }
-        catch (IOException ex) {
-            System.out.println("Something went wrong when writing to a file");
-        }
+    public void writeLine(String line) throws IOException {
+        fileWriter.write(line);
+        fileWriter.write(System.lineSeparator());
 
     }
 
-    public void write(String string) {
-        try {
-            String[] lines = string.split("\n");
-            for (int i = 0; i < lines.length; i++) {
-                fileWriter.write(lines[i]);
-                fileWriter.write(System.lineSeparator());
-            }
-            fileWriter.write(string);
-        }
-        catch (IOException ex) {
-            System.out.println("Something went wrong when writing to a file");
-        }
+    public void write(String string) throws IOException {
+        fileWriter.write(string);
     }
 
-    public void endLine() {
-        try {
-            fileWriter.write(System.lineSeparator());
-        }
-        catch (IOException ex) {
-            System.out.println("Something went wrong when writing to a file");
-        }
+    public void endLine() throws IOException {
+        fileWriter.write(System.lineSeparator());
     }
 
-    public void close() {
-        try {
-            fileWriter.close();
-        }
-        catch (IOException ex) {
-            System.out.println("Something went wrong when saving the file");
-        }
+    public void close() throws IOException {
+        fileWriter.close();
     }
 
     public String getFilename() {

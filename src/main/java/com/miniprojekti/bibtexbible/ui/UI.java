@@ -24,4 +24,6 @@ public interface UI {
     public String askFilename();
 
     public void printFilename(String filename);
+
+    public void printFileWriteError();
 }

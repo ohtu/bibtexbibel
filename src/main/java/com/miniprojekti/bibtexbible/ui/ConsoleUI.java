@@ -142,4 +142,9 @@ public class ConsoleUI implements UI {
         return io.readline();
     }
 
+    @Override
+    public void printFileWriteError() {
+        io.write("Writing to a file caused an error");
+    }
+
 }
