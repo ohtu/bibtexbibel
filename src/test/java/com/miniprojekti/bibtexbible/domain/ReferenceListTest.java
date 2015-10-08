@@ -7,6 +7,7 @@ package com.miniprojekti.bibtexbible.domain;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,23 +22,8 @@ import static org.junit.Assert.*;
 public class ReferenceListTest {
 
     private static ReferenceList refList;
-    private static MockBook kirja1;
-    private static MockBook kirja2;
-
-    private static class MockBook extends Reference {
-
-        public MockBook(String author, String title, String year) {
-            super();
-            Map<String, String> pD = getPropertyDescriptions();
-            pD.put("author", "");
-            pD.put("title", "");
-            pD.put("year", "");
-            setProperty("author", author);
-            setProperty("title", title);
-            setProperty("year", year);
-        }
-
-    }
+    private static Book kirja1;
+    private static Book kirja2;
 
     public ReferenceListTest() {
     }
@@ -54,8 +40,24 @@ public class ReferenceListTest {
     @Before
     public void setUp() {
         refList = new ReferenceList();
-        kirja1 = new MockBook("Tekija", "Titteli", "1984");
-        kirja2 = new MockBook("Tekija2", "Titteli2", "1985");
+        kirja1 = createNewBook("Tekija1", "Titteli1", "1984", "Julkaisija1");
+        kirja2 = createNewBook("Tekija2", "Titteli2", "1985", "Julkaisija2");
+    }
+    
+    public Book createNewBook(String author, String title, String year, String publisher) {
+        Book b = new Book();
+        Set<String> labels = b.getPropertyDescriptions().keySet();
+        b.setProperty("author", author);
+        b.setProperty("title", title);
+        b.setProperty("year", year);
+        b.setProperty("publisher", publisher);
+        // Kun käyttäjä syöttää propertyt, tyhjät kentät ei jää nulleiks
+        for (String label : labels) {
+            if (b.getProperty(label) == null) {
+                b.setProperty(label, "");
+            }
+        }
+        return b;
     }
 
     @After
@@ -77,8 +79,8 @@ public class ReferenceListTest {
 
     @Test
     public void testAddSameReferenceMultipleTimes() {
-        Book a1 = new Book("Mauri Rynnäs", "Teos1", "2015", "UGK");
-        Book a2 = new Book("Mauri Rynnäs", "Teos1", "2015", "UGK");
+        Book a1 = createNewBook("Mauri Rynnäs", "Teos1", "2015", "UGK");
+        Book a2 = createNewBook("Mauri Rynnäs", "Teos1", "2015", "UGK");
         refList.add(a1);
         refList.add(a2);
         refList.add(a2);
@@ -87,10 +89,10 @@ public class ReferenceListTest {
 
     @Test
     public void testAddReferencesWithSameID() {
-        Book a1 = new Book("Mauri Rynnäs", "Teos1", "2015", "UGK");
-        Book a2 = new Book("Mauri Rynnäs", "Teos2", "2015", "UGK");
-        Book a3 = new Book("Mauri Rynnäs", "Teos3", "2015", "UGK");
-        Book a4 = new Book("Mauri Rynnäs", "Teos4", "2015", "UGK");
+        Book a1 = createNewBook("Mauri Rynnäs", "Teos1", "2015", "UGK");
+        Book a2 = createNewBook("Mauri Rynnäs", "Teos2", "2015", "UGK");
+        Book a3 = createNewBook("Mauri Rynnäs", "Teos3", "2015", "UGK");
+        Book a4 = createNewBook("Mauri Rynnäs", "Teos4", "2015", "UGK");
         refList.add(a1);
         refList.add(a2);
         refList.add(a3);

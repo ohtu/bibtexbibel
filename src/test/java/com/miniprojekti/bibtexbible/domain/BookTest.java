@@ -22,12 +22,23 @@ public class BookTest {
     @Before
     public void setUp() {
         emptyBook = new Book();
-        typicalBook = new Book(
-                "Dostojevski, Fyodor",
-                "Crime and Punishment",
-                "1866",
-                "The Russian Messenger"
-        );
+        labels = emptyBook.getPropertyDescriptions().keySet();
+        for (String label : labels) {
+            if (emptyBook.getProperty(label) == null) {
+                emptyBook.setProperty(label, "");
+            }
+        }
+        typicalBook = new Book();
+        typicalBook.setProperty("author", "Dostojevski, Fyodor");
+        typicalBook.setProperty("title", "Crime and Punishment");
+        typicalBook.setProperty("year", "1866");
+        typicalBook.setProperty("publisher", "The Russian Messenger");
+        // Kun käyttäjä syöttää propertyt, tyhjät kentät ei jää nulleiks
+        for (String label : labels) {
+            if (typicalBook.getProperty(label) == null) {
+                typicalBook.setProperty(label, "");
+            }
+        }
         fullyDescribedBook = new Book();
         for (String label : fullyDescribedBook.getPropertyDescriptions().keySet()) {
             fullyDescribedBook.setProperty(label, label + "x");
@@ -53,19 +64,26 @@ public class BookTest {
     }
     
     @Test
-    public void testConstructorSetsPropertyValuesCorrectly() {
+    public void testConstructorSetsPropertyValuesCorrectlyTypicalBook() {
         assertTrue(typicalBook.getProperty("author").equals("Dostojevski, Fyodor"));
         assertTrue(typicalBook.getProperty("title").equals("Crime and Punishment"));
         assertTrue(typicalBook.getProperty("year").equals("1866"));
         assertTrue(typicalBook.getProperty("publisher").equals("The Russian Messenger"));
         // varmistetaan vielä ettei muita valueita löydy
-        int count = 0; // kuinka monta valueta typicalbookilta löytyy
+        int count = 0; // kuinka monta valueta typicalproceedingsilta löytyy
         for (String label : labels) {
-            // varmistetaan samalla ettei emptybookilta löydy mitään
-            assertTrue(emptyBook.getProperty(label) == null);
-            if (typicalBook.getProperty(label) != null) count++;
+            if (!typicalBook.getProperty(label).isEmpty()) {
+                count++;
+            }
         }
-        assertTrue(count==4);
+        assertTrue(count == 4);
+    }
+    
+    @Test
+    public void testConstructorSetsPropertyValuesCorrectlyEmptyBook() {
+        for (String label : labels) {
+            assertTrue(emptyBook.getProperty(label).isEmpty());
+        }
     }
     
     @Test

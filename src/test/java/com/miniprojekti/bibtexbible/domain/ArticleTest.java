@@ -34,19 +34,31 @@ public class ArticleTest {
     @Before
     public void setUp() {
         emptyArticle = new Article();
-        typicalArticle = new Article(
-                "Karri Kirjoittaja",
-                "Artikkelin Otsikko",
-                "1866",
-                "Journal of Nature",
-                "Volume 58"
-        );
+        labels = emptyArticle.getPropertyDescriptions().keySet();
+        for (String label : labels) {
+            if (emptyArticle.getProperty(label) == null) {
+                emptyArticle.setProperty(label, "");
+            }
+        }
+        typicalArticle = new Article();
+        typicalArticle.setProperty("author", "Karri Kirjoittaja");
+        typicalArticle.setProperty("title", "Artikkelin Otsikko");
+        typicalArticle.setProperty("year", "1866");
+        typicalArticle.setProperty("journal", "Journal of Nature");
+        typicalArticle.setProperty("volume", "Volume 58");
+        // Kun käyttäjä syöttää propertyt, tyhjät kentät ei jää nulleiks
+        for (String label : labels) {
+            if (typicalArticle.getProperty(label) == null) {
+                typicalArticle.setProperty(label, "");
+            }
+        }
+                
         fullyDescribedArticle = new Article();
         for (String label : fullyDescribedArticle.getPropertyDescriptions().keySet()) {
             fullyDescribedArticle.setProperty(label, label + "x");
             // testissä esim. address arvo pitäisi olla "addressx"
         }
-        labels = emptyArticle.getPropertyDescriptions().keySet();
+        
     }
     
     /*
@@ -66,7 +78,7 @@ public class ArticleTest {
     }
     
     @Test
-    public void testConstructorSetsPropertyValuesCorrectly() {
+    public void testConstructorSetsPropertyValuesCorrectlyTypicalArticle() {
         assertTrue(typicalArticle.getProperty("author").equals("Karri Kirjoittaja"));
         assertTrue(typicalArticle.getProperty("title").equals("Artikkelin Otsikko"));
         assertTrue(typicalArticle.getProperty("year").equals("1866"));
@@ -75,11 +87,16 @@ public class ArticleTest {
         // varmistetaan vielä ettei muita valueita löydy
         int count = 0; // kuinka monta valueta typicalarticleilta löytyy
         for (String label : labels) {
-            // varmistetaan samalla ettei emptyarticleilta löydy mitään
-            assertTrue(emptyArticle.getProperty(label) == null);
-            if (typicalArticle.getProperty(label) != null) count++;
+            if (!typicalArticle.getProperty(label).isEmpty()) count++;
         }
         assertTrue(count==5);
+    }
+    
+    @Test
+    public void testConstructorSetsPropertyValuesCorrectlyEmptyArticle() {
+        for (String label : labels) {
+            assertTrue(emptyArticle.getProperty(label).isEmpty());
+        }
     }
     
     @Test

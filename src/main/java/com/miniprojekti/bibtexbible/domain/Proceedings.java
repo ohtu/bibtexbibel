@@ -19,25 +19,7 @@ public class Proceedings extends Reference {
         super();
         setPropertyDescriptions();
     }
-    
-    public Proceedings(String title, String year) {
-        super();
-        setPropertyDescriptions();
-        setProperty("title", title);
-        setProperty("year", year);
-    }
-
-    @Override
-    public boolean setProperty(String label, String value) {
-        if (!getPropertyDescriptions().containsKey(label)) {
-            // If label is not a property of Book
-            return false;
-        }
-        super.setProperty(label, value);
-        return true;
-    }
-    
-
+    // pakolliset title year
     
     private void setPropertyDescriptions() {
         Map<String, String> propertyDescriptions = super.getPropertyDescriptions();

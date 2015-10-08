@@ -2,6 +2,7 @@ package com.miniprojekti.bibtexbible.domain;
 
 import static com.miniprojekti.misc.Tool.getType;
 import static com.miniprojekti.misc.Tool.replaceScandisForBibTex;
+import static com.miniprojekti.misc.Tool.truncate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -32,19 +33,22 @@ public abstract class Reference {
     public Map<String, String> getPropertyDescriptions() {
         return propertyDescriptions;
     }
-
+    
     public boolean setProperty(String label, String value) {
+        if (!getPropertyDescriptions().containsKey(label)) {
+            return false; // incorrect label
+        }
         this.propertyValues.put(label, value);
-        return true; // boolean, jotta sub luokat voi tarkistaa että label sallittu
+        return true;
     }
 
     public String getID() {
         if (id == null) {
             id = "";
             if (getProperty("author") != null) {
-                id += getProperty("author").substring(0, 4);
+                id += truncate(getProperty("author")); // truncate antaa ekat 4 merkkiä
             } else if (getProperty("title") != null) {
-                id += getProperty("title").substring(0, 4);
+                id += truncate(getProperty("title"));
             }
             id += getProperty("year");
         }
@@ -64,11 +68,9 @@ public abstract class Reference {
         s += getID();
         s += ", \r\n";
         for (String label : getPropertyDescriptions().keySet()) {
-            if (getProperty(label) == null) {
-                continue;
-            }
-            s += label + " = " + "\"" + getProperty(label) + "\"";
-            s += ", \r\n";
+            String value = getProperty(label);
+            if (value.isEmpty()) continue;
+            s += label + " = " + "\"" + value + "\"" + ", \r\n";
         }
         s += "}";
         return replaceScandisForBibTex(s);

@@ -35,10 +35,21 @@ public class ProceedingsTest {
     @Before
     public void setUp() {
         emptyProceedings = new Proceedings();
-        typicalProceedings = new Proceedings(
-                "Taloyhtiön vuosikokous",
-                "2015"
-        );
+        labels = emptyProceedings.getPropertyDescriptions().keySet();
+        typicalProceedings = new Proceedings();
+        typicalProceedings.setProperty("title", "Taloyhtiön vuosikokous");
+        typicalProceedings.setProperty("year", "2015");
+        // Kun käyttäjä syöttää propertyt, tyhjät kentät ei jää nulleiks
+        for (String label : labels) {
+            if (emptyProceedings.getProperty(label) == null) {
+                emptyProceedings.setProperty(label, "");
+            }
+        }
+        for (String label : labels) {
+            if (typicalProceedings.getProperty(label) == null) {
+                typicalProceedings.setProperty(label, "");
+            }
+        }
         fullyDescribedProceedings = new Proceedings();
         for (String label : fullyDescribedProceedings.getPropertyDescriptions().keySet()) {
             fullyDescribedProceedings.setProperty(label, label + "x");
@@ -64,20 +75,26 @@ public class ProceedingsTest {
     }
 
     @Test
-    public void testConstructorSetsPropertyValuesCorrectly() {
+    public void testConstructorSetsPropertyValuesCorrectlyTypicalProceedings() {
         assertTrue(typicalProceedings.getProperty("title").equals("Taloyhtiön vuosikokous"));
         assertTrue(typicalProceedings.getProperty("year").equals("2015"));
         // varmistetaan vielä ettei muita valueita löydy
         int count = 0; // kuinka monta valueta typicalproceedingsilta löytyy
         for (String label : labels) {
-            // varmistetaan samalla ettei emptyproceedingsilta löydy mitään
-            assertTrue(emptyProceedings.getProperty(label) == null);
-            if (typicalProceedings.getProperty(label) != null) {
+            if (!typicalProceedings.getProperty(label).isEmpty()) {
                 count++;
             }
         }
         assertTrue(count == 2);
     }
+    
+    @Test
+    public void testConstructorSetsPropertyValuesCorrectlyEmptyProceedings() {
+        for (String label : labels) {
+            assertTrue(emptyProceedings.getProperty(label).isEmpty());
+        }
+    }
+        
 
     @Test
     public void testSetProperty() {

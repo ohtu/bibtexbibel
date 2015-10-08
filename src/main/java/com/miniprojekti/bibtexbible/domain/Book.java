@@ -9,27 +9,7 @@ public class Book extends Reference {
         super();
         setPropertyDescriptions();
     }
-    
-    public Book(String author, String title, String year, String publisher) {
-        super();
-        setPropertyDescriptions();
-        setProperty("author", author);
-        setProperty("title", title);
-        setProperty("year", year);
-        setProperty("publisher", publisher);
-    }
-
-    @Override
-    public boolean setProperty(String label, String value) {
-        if (!getPropertyDescriptions().containsKey(label)) {
-            // If label is not a property of Book
-            return false;
-        }
-        super.setProperty(label, value);
-        return true;
-    }
-    
-    
+    // pakolliset String author, String title, String year, String publisher
     
     private void setPropertyDescriptions() {
         Map<String, String> propertyDescriptions = super.getPropertyDescriptions();
