@@ -30,11 +30,8 @@ public class WriterTest {
         try {
             File mockFile = folder.newFile("mock.bib");
             Writer writer = new Writer(mockFile);
-            writer.writeLine("Yksi kaksi kolme");
-            writer.write("Yksi ");
-            writer.write("kaksi ");
-            writer.write("kolme");
-            writer.endLine();
+            writer.writeLine("Yksi kaksi kolme\n"
+                    + "Yksi kaksi kolme");
             writer.close();
             BufferedReader br;
             br = new BufferedReader(new FileReader(mockFile));

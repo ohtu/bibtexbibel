@@ -37,27 +37,29 @@ public class ConsoleUITest {
     }
     
     @Test
-    public void selectMenuOptionReturnsInputsBetweenZeroAndThree() {
+    public void selectMenuOptionReturnsInputsBetweenZeroAndFour() {
         when(io.readInteger())
             .thenReturn(0)
             .thenReturn(1)
             .thenReturn(2)
-            .thenReturn(3);
+            .thenReturn(3)
+            .thenReturn(4);
         assertEquals(0, ui.selectMenuOption());
         assertEquals(1, ui.selectMenuOption());
         assertEquals(2, ui.selectMenuOption());
         assertEquals(3, ui.selectMenuOption());
+        assertEquals(4, ui.selectMenuOption());
     }
     
     @Test
-    public void selectMenuOptionDoesNotReturnInputsLessThanZeroOrMoreThanThree() {
+    public void selectMenuOptionDoesNotReturnInputsLessThanZeroOrMoreThanFour() {
         when(io.readInteger())
             .thenReturn(-1)
             .thenReturn(0)
-            .thenReturn(4)
-            .thenReturn(3);
+            .thenReturn(5)
+            .thenReturn(4);
         assertEquals(0, ui.selectMenuOption());
-        assertEquals(3, ui.selectMenuOption());
+        assertEquals(4, ui.selectMenuOption());
     }
     
     @Test
