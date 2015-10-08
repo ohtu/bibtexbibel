@@ -11,12 +11,12 @@ public class App {
         this.ui = ui;
         this.controller = controller;
     }
-    
+
     /**
      * Suorittaa ohjelmaa, kunnes käyttäjä lopettaa sen päävalikon kautta
      */
     public void runConsoleApp() {
-        ui.init();     
+        ui.init();
         boolean running = true;
         while (running) {
             int action = ui.selectMenuOption();
@@ -24,7 +24,7 @@ public class App {
         }
         ui.exit();
     }
-    
+
     // Reititää ohjelman controllerille
     private boolean route(int action) {
         switch (action) {
@@ -40,7 +40,7 @@ public class App {
             case (4):
                 this.controller.export();
                 break;
-            case (0):  
+            case (0):
                 return false;
             default:
                 break;

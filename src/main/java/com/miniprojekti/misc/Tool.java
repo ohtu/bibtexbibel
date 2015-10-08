@@ -28,9 +28,9 @@ public final class Tool {
     public static String truncate(String s) {
         return s.substring(0, Math.min(4, s.length()));  
     }
-    
+   
     public static String getType(Object o) {
         String[] classPath = o.getClass().toString().split("\\.");
-        return classPath[classPath.length-1];
+        return classPath[classPath.length - 1];
     }
 }

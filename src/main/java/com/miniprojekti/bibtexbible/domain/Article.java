@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.miniprojekti.bibtexbible.domain;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,5 +25,5 @@ public class Article extends Reference {
         propertyDescriptions.put("number", "Number of the Journal");
         propertyDescriptions.put("month", "Month of the publication");
     }
-    
+
 }

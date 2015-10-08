@@ -49,11 +49,11 @@ public class ReferenceController {
         writer.close();
         ui.printFilename(writer.getFilename());
     }
-    
+
     public List<Reference> getReferenceList() {
         return this.references.list();
     }
-    
+
     private Reference createReference(int type) {
         switch (type) {
             case (2):

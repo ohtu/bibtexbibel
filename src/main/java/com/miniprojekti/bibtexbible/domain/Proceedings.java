@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.miniprojekti.bibtexbible.domain;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -14,13 +7,13 @@ import java.util.Map;
  * @author asjuvone
  */
 public class Proceedings extends Reference {
-     
+
     public Proceedings() {
         super();
         setPropertyDescriptions();
     }
     // pakolliset title year
-    
+
     private void setPropertyDescriptions() {
         Map<String, String> propertyDescriptions = super.getPropertyDescriptions();
         propertyDescriptions.put("title", "The tile of the publication");
