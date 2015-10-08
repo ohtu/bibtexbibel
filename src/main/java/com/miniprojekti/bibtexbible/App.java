@@ -1,12 +1,11 @@
 package com.miniprojekti.bibtexbible;
 
-import com.miniprojekti.bibtexbible.io.IO;
 import com.miniprojekti.bibtexbible.ui.UI;
 
 public class App {
 
     private final UI ui;
-    private ReferenceController controller;
+    private final ReferenceController controller;
 
     public App(UI ui, ReferenceController controller) {
         this.ui = ui;

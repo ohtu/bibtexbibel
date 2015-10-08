@@ -4,12 +4,18 @@ import com.miniprojekti.bibtexbible.domain.Reference;
 import java.util.List;
 
 public interface UI {
-    
+
     public void init();
+
     public void exit();
-    
+
+    public void printLine(String line);
+
     public int selectMenuOption();
+
     public int selectReferenceType();
+
     public int selectReferenceToDelete(List<Reference> references);
+
     public void printReferences(List<Reference> refrences);
 }

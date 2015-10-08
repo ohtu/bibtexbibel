@@ -1,14 +1,16 @@
 package com.miniprojekti.bibtexbible;
 
+import com.miniprojekti.bibtexbible.domain.Article;
 import com.miniprojekti.bibtexbible.domain.Book;
+import com.miniprojekti.bibtexbible.domain.Proceedings;
 import com.miniprojekti.bibtexbible.domain.Reference;
 import com.miniprojekti.bibtexbible.domain.ReferenceList;
 import com.miniprojekti.bibtexbible.ui.UI;
 
 public class ReferenceController {
 
-    private UI ui;
-    private ReferenceList references;
+    private final UI ui;
+    private final ReferenceList references;
 
     public ReferenceController(UI ui) {
         this.ui = ui;
@@ -26,21 +28,18 @@ public class ReferenceController {
     }
 
     public void delete() {
-        int id = ui.selectReferenceToDelete(references.list());
-        references.list().remove(id);
+        int index = ui.selectReferenceToDelete(references.list());
+        references.delete(index);
     }
 
     private Reference createReference(int type) {
-        Reference reference = null;
         switch (type) {
-            case (1):
-                reference = new Book();
-                //Järkevä toteutus vaatii vielä Reference- ja Book- luokkien
-                //modifiointia
-                break;
+            case (2):
+                return new Article();
+            case (3):
+                return new Proceedings();
             default:
-                break;
+                return new Book();
         }
-        return reference;
     }
 }

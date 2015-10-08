@@ -6,34 +6,35 @@ import java.util.List;
 
 public class ReferenceList {
 
-    private HashMap<String, Reference> lista;
+    private final HashMap<String, Reference> lista;
 
     public ReferenceList() {
         lista = new HashMap<>();
     }
 
     public void add(Reference reference) {
-        if (lista.containsKey(reference.getID())) {
-            if (lista.get(reference.getID()).equals(reference)) {
-                return; // On lisätty jo aiemmin
-            }
-            // Duplicate IDs on different references
-            changeID(reference); 
-        }
         lista.put(reference.getID(), reference);
     }
-    
-    private void changeID(Reference reference) {
-        int addon = 2;
-        while (lista.containsKey(reference.getID() + addon)) {
-            addon++;
-        }
-        String newID = reference.getID() + addon;
-        reference.setID(newID);
+
+    public void delete(String key) {
+        lista.remove(key);
     }
 
-    public void delete(Reference reference) {
-        lista.remove(reference.getID());
+    public void delete(int index) {
+        if (index >= 0 && index < lista.size() && lista.size() > 0) {
+            String key = "";
+            int i = 0;
+            for (String s : lista.keySet()) {
+                if (index == i) {
+                    key = s;
+                    break;
+                }
+                i++;
+            }
+            if (!key.isEmpty()) {
+                lista.remove(key);
+            }
+        }
     }
 
     public List<Reference> list() {
