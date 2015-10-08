@@ -24,9 +24,9 @@ public final class Tool {
         s = s.replace("å", "\\aa"); //      \aa
         return s;
     }
-    
+
     public static String getType(Object o) {
         String[] classPath = o.getClass().toString().split("\\.");
-        return classPath[classPath.length-1];
+        return classPath[classPath.length - 1];
     }
 }

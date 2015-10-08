@@ -9,7 +9,7 @@ public class ConsoleIO implements IO {
     public ConsoleIO() {
         this.scanner = new Scanner(System.in);
     }
-    
+
     public ConsoleIO(Scanner scanner) {
         this.scanner = scanner;
     }
@@ -23,15 +23,16 @@ public class ConsoleIO implements IO {
     public String readline() {
         return scanner.nextLine();
     }
-    
+
     @Override
     public int readInteger() {
         while (true) {
             try {
-                return Integer.parseInt(scanner.nextLine());      
-            } catch (Exception e) {
+                return Integer.parseInt(scanner.nextLine());
+            }
+            catch (Exception e) {
                 write("Non integer. Try again.");
-            } 
+            }
         }
     }
 }

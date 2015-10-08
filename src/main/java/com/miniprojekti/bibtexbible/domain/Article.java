@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.miniprojekti.bibtexbible.domain;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,7 +12,7 @@ public class Article extends Reference {
         super();
         setPropertyDescriptions();
     }
-    
+
     public Article(String author, String title, String year, String journal, String volume) {
         super();
         setPropertyDescriptions();
@@ -38,9 +32,7 @@ public class Article extends Reference {
         super.setProperty(label, value);
         return true;
     }
-    
 
-    
     private void setPropertyDescriptions() {
         Map<String, String> propertyDescriptions = super.getPropertyDescriptions();
         propertyDescriptions.put("author", "Author of the Title");
@@ -52,5 +44,5 @@ public class Article extends Reference {
         propertyDescriptions.put("number", "Number of the Journal");
         propertyDescriptions.put("month", "Month of the publication");
     }
-    
+
 }

@@ -3,7 +3,6 @@ package com.miniprojekti.bibtexbible.domain;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 public class ReferenceList {
 
@@ -57,9 +56,9 @@ public class ReferenceList {
         }
         return ar;
     }
-    
+
     public void exportBibtex(String filename) {
-        
+
     }
 
 }
