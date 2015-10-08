@@ -3,6 +3,7 @@ package com.miniprojekti.bibtexbible.domain;
 import static com.miniprojekti.misc.Tool.replaceScandisForBibTex;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
@@ -89,7 +90,7 @@ public class BookTest {
 
     @Test
     public void testGetPropertiesReturnsHashMapWithCorrecNumberOfProperties() {
-        HashMap<String, String> properties = emptyBook.getPropertyDescriptions();
+        Map<String, String> properties = emptyBook.getPropertyDescriptions();
         assertEquals(true, properties instanceof HashMap);
         assertEquals(10, properties.size());
     }

@@ -6,6 +6,7 @@
 package com.miniprojekti.bibtexbible.domain;
 
 import java.util.HashMap;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -27,7 +28,7 @@ public class ReferenceListTest {
 
         public MockBook(String author, String title, String year) {
             super();
-            HashMap<String, String> pD = getPropertyDescriptions();
+            Map<String, String> pD = getPropertyDescriptions();
             pD.put("author", "");
             pD.put("title", "");
             pD.put("year", "");
@@ -81,7 +82,7 @@ public class ReferenceListTest {
         refList.add(a1);
         refList.add(a2);
         refList.add(a2);
-        assertTrue(refList.list().size() == 3);
+        assertEquals(1, refList.list().size());
     }
 
     @Test

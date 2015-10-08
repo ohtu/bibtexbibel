@@ -6,6 +6,8 @@
 package com.miniprojekti.bibtexbible.domain;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  *
@@ -38,7 +40,7 @@ public class Proceedings extends Reference {
 
     
     private void setPropertyDescriptions() {
-        HashMap<String, String> propertyDescriptions = super.getPropertyDescriptions();
+        Map<String, String> propertyDescriptions = super.getPropertyDescriptions();
         propertyDescriptions.put("title", "The tile of the publication");
         propertyDescriptions.put("year", "Publication year");
         propertyDescriptions.put("editor", "Editor of the proceedings");

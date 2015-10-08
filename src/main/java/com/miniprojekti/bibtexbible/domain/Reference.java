@@ -4,17 +4,19 @@ import static com.miniprojekti.misc.Tool.getType;
 import static com.miniprojekti.misc.Tool.replaceScandisForBibTex;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Reference {
 
     private String id;
-    private final HashMap<String, String> propertyDescriptions;
-    private final HashMap<String, String> propertyValues;
+    private final Map<String, String> propertyDescriptions;
+    private final Map<String, String> propertyValues;
     private final List<String> requiredValues;
 
     public Reference() {
-        this.propertyDescriptions = new HashMap<>();
+        this.propertyDescriptions = new LinkedHashMap<>();
         this.propertyValues = new HashMap<>();
         this.requiredValues = new ArrayList<>();
     }
@@ -27,7 +29,7 @@ public abstract class Reference {
      *
      * @return HashMap, which contains descriptions for labels
      */
-    public HashMap<String, String> getPropertyDescriptions() {
+    public Map<String, String> getPropertyDescriptions() {
         return propertyDescriptions;
     }
 
@@ -37,6 +39,15 @@ public abstract class Reference {
     }
 
     public String getID() {
+        if (id == null) {
+            id = "";
+            if (getProperty("author") != null) {
+                id += getProperty("author").substring(0, 4);
+            } else if (getProperty("title") != null) {
+                id += getProperty("title").substring(0, 4);
+            }
+            id += getProperty("year");
+        }
         return id;
     }
 

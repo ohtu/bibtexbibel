@@ -14,10 +14,15 @@ public class ReferenceList {
     }
 
     public void add(Reference reference) {
-        while (lista.containsKey(reference.getID()) || reference.getID() == null) {
-            // täytyy generoida uusi id
-            String key = reference.getID();
-            reference.setID("Ref" + new Random().nextInt(1000));
+        int addon = 1;
+        String key = reference.getID();
+        if (lista.containsKey(key) && lista.get(key).equals(reference)) {
+            return; // On lisätty jo aiemmin
+        }
+        while (lista.containsKey(reference.getID()) || reference.getID() == null || reference.getID().isEmpty()) {
+            // id collision -> uusi id
+            reference.setID(key + addon);
+            addon++;
         }
         lista.put(reference.getID(), reference);
     }
