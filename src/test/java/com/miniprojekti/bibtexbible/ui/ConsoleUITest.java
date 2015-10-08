@@ -161,7 +161,13 @@ public class ConsoleUITest {
     } 
     
     @Test
-    public void printExportText() {
+    public void printExportTextCallsIOWrite() {
+        ui.printExportText();
+        verify(io).write(anyString());
+    }
+    
+    @Test
+    public void printFileWriteErrorCallsIoWrite() {
         ui.printExportText();
         verify(io).write(anyString());
     }
