@@ -25,13 +25,31 @@ public class ConsoleUI implements UI {
     @Override
     public int selectMenuOption() {
         printStartMenu();
-        return askInput(0, 3);
+        return askInput(0, 4);
     }
 
     @Override
     public int selectReferenceType() {
         printReferenceTypes();
         return askInput(0, 3);
+    }
+
+    @Override
+    public String askFilename() {
+        printExportText();
+        while (true) {
+            String name = io.readline();
+            if (!name.isEmpty()) {
+                return name;
+            } else {
+                io.write("Invalid filename. Try Again.");
+            }
+        }
+    }
+
+    @Override
+    public void printFilename(String filename) {
+        io.write("All references exported to file " + filename);
     }
 
     @Override
@@ -67,6 +85,10 @@ public class ConsoleUI implements UI {
         }
     }
 
+    public void printExportText() {
+        io.write("Give a file name to the exported document:");
+    }
+
     // Tulostaa esittelytekstin
     private void printIntroText() {
         io.write(
@@ -88,6 +110,7 @@ public class ConsoleUI implements UI {
                 + "1) Add a new reference\n"
                 + "2) List all references\n"
                 + "3) Delete reference\n"
+                + "4) Export bibtex\n"
                 + "0) Exit"
         );
     }
