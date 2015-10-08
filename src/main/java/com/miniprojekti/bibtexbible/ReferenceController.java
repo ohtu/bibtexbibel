@@ -4,6 +4,7 @@ import com.miniprojekti.bibtexbible.domain.Book;
 import com.miniprojekti.bibtexbible.domain.Reference;
 import com.miniprojekti.bibtexbible.domain.ReferenceList;
 import com.miniprojekti.bibtexbible.ui.UI;
+import com.miniprojekti.bibtexbible.fileio.Writer;
 
 public class ReferenceController {
 
@@ -28,6 +29,15 @@ public class ReferenceController {
     public void delete() {
         int id = ui.selectReferenceToDelete(references.list());
         references.list().remove(id);
+    }
+    
+    public void export() {
+        String filename = ui.askFilename();
+        Writer writer = new Writer(filename);
+        for (Reference reference : references.list()) {
+            writer.write(reference.toBibTex());
+        }
+        ui.printFilename(writer.getFilename());
     }
 
     private Reference createReference(int type) {

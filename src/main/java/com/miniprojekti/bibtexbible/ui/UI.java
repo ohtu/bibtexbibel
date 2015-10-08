@@ -12,4 +12,6 @@ public interface UI {
     public int selectReferenceType();
     public int selectReferenceToDelete(List<Reference> references);
     public void printReferences(List<Reference> refrences);
+    public String askFilename();
+    public void printFilename(String filename);
 }

@@ -43,5 +43,9 @@ public class ReferenceList {
         }
         return ar;
     }
+    
+    public void exportBibtex(String filename) {
+        
+    }
 
 }

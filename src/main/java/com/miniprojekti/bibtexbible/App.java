@@ -38,6 +38,9 @@ public class App {
             case (3):
                 this.controller.delete();
                 break;
+            case (4):
+                this.controller.export();
+                break;
             case (0):  
                 return false;
             default:
