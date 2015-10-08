@@ -7,6 +7,7 @@ import com.miniprojekti.bibtexbible.domain.Reference;
 import com.miniprojekti.bibtexbible.domain.ReferenceList;
 import com.miniprojekti.bibtexbible.ui.UI;
 import com.miniprojekti.bibtexbible.fileio.Writer;
+import java.util.List;
 
 public class ReferenceController {
 
@@ -47,7 +48,11 @@ public class ReferenceController {
         }
         ui.printFilename(writer.getFilename());
     }
-
+    
+    public List<Reference> getReferenceList() {
+        return this.references.list();
+    }
+    
     private Reference createReference(int type) {
         switch (type) {
             case (2):
