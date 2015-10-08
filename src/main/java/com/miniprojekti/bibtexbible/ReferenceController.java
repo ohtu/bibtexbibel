@@ -20,10 +20,13 @@ public class ReferenceController {
 
     public void create() {
         int type = ui.selectReferenceType();
+        if (type == 0) {
+            return;
+        }
         Reference reference = createReference(type);
-        
+
         ui.setProperties(reference);
-        
+
         references.add(reference);
     }
 
@@ -35,7 +38,7 @@ public class ReferenceController {
         int index = ui.selectReferenceToDelete(references.list());
         references.delete(index);
     }
-    
+
     public void export() {
         String filename = ui.askFilename();
         Writer writer = new Writer(filename);
