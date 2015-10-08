@@ -144,6 +144,7 @@ public class ConsoleUITest {
         
         when(io.readline())              
             .thenReturn(author)
+            .thenReturn("")  // editor
             .thenReturn(title)
             .thenReturn(year)
             .thenReturn(publisher)
