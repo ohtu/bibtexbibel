@@ -20,6 +20,9 @@ public class ReferenceController {
     public void create() {
         int type = ui.selectReferenceType();
         Reference reference = createReference(type);
+        
+        ui.setProperties(reference);
+        
         references.add(reference);
     }
 

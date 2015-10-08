@@ -18,4 +18,6 @@ public interface UI {
     public int selectReferenceToDelete(List<Reference> references);
 
     public void printReferences(List<Reference> refrences);
+
+    public void setProperties(Reference reference);
 }

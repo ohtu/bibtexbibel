@@ -59,6 +59,14 @@ public class ConsoleUI implements UI {
         return askInput(1, references.size()) - 1;
     }
 
+    @Override
+    public void setProperties(Reference reference) {
+        for (String label : reference.getPropertyDescriptions().keySet()) {
+            io.write(reference.getPropertyDescriptions().get(label));
+            reference.setProperty(label, askInput());
+        }
+    }
+
     // Tulostaa esittelytekstin
     private void printIntroText() {
         io.write(
@@ -105,6 +113,10 @@ public class ConsoleUI implements UI {
                 io.write("Invalid option. Try Again.");
             }
         }
+    }
+
+    private String askInput() {
+        return io.readline();
     }
 
 }
