@@ -45,6 +45,7 @@ public class ReferenceController {
         for (Reference reference : references.list()) {
             writer.write(reference.toBibTex());
         }
+        writer.close();
         ui.printFilename(writer.getFilename());
     }
 
