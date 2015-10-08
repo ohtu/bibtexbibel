@@ -12,6 +12,12 @@
         <easyb.version>1.5</easyb.version>
     </properties>
     <dependencies>
+        <!--tietokantamme-->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.8.11.1</version>
+        </dependency>
         <!-- perusyksikkötestit -->
         <dependency>
             <groupId>junit</groupId>
