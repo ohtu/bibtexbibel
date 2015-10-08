@@ -5,6 +5,7 @@
  */
 package com.miniprojekti.bibtexbible.domain;
 
+import static com.miniprojekti.misc.Tool.replaceNullsWithEmpty;
 import static com.miniprojekti.misc.Tool.replaceScandisForBibTex;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,24 +36,14 @@ public class ArticleTest {
     public void setUp() {
         emptyArticle = new Article();
         labels = emptyArticle.getPropertyDescriptions().keySet();
-        for (String label : labels) {
-            if (emptyArticle.getProperty(label) == null) {
-                emptyArticle.setProperty(label, "");
-            }
-        }
         typicalArticle = new Article();
         typicalArticle.setProperty("author", "Karri Kirjoittaja");
         typicalArticle.setProperty("title", "Artikkelin Otsikko");
         typicalArticle.setProperty("year", "1866");
         typicalArticle.setProperty("journal", "Journal of Nature");
         typicalArticle.setProperty("volume", "Volume 58");
-        // Kun käyttäjä syöttää propertyt, tyhjät kentät ei jää nulleiks
-        for (String label : labels) {
-            if (typicalArticle.getProperty(label) == null) {
-                typicalArticle.setProperty(label, "");
-            }
-        }
-                
+        replaceNullsWithEmpty(emptyArticle);
+        replaceNullsWithEmpty(typicalArticle);
         fullyDescribedArticle = new Article();
         for (String label : fullyDescribedArticle.getPropertyDescriptions().keySet()) {
             fullyDescribedArticle.setProperty(label, label + "x");

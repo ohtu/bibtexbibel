@@ -5,6 +5,9 @@
  */
 package com.miniprojekti.misc;
 
+import com.miniprojekti.bibtexbible.domain.Reference;
+import java.util.Set;
+
 /**
  *
  * @author asjuvone
@@ -27,6 +30,20 @@ public final class Tool {
     
     public static String truncate(String s) {
         return s.substring(0, Math.min(4, s.length()));  
+    }
+    
+    /**
+     * Kun käyttäjä syöttää propertyt, tyhjät kentät ei jää nulleiks
+     * Testeissä luotavissa reference-olioissa pitää vastaavasti
+     * korvata nullit tyhjillä stringeillä
+     */
+    public static void replaceNullsWithEmpty(Reference r) {
+        Set<String> labels = r.getPropertyDescriptions().keySet();
+        for (String label : labels) {
+            if (r.getProperty(label) == null) {
+                r.setProperty(label, "");
+            }
+        }
     }
    
     public static String getType(Object o) {

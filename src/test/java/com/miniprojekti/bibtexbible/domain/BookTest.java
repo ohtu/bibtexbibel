@@ -1,5 +1,6 @@
 package com.miniprojekti.bibtexbible.domain;
 
+import static com.miniprojekti.misc.Tool.replaceNullsWithEmpty;
 import static com.miniprojekti.misc.Tool.replaceScandisForBibTex;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,22 +24,13 @@ public class BookTest {
     public void setUp() {
         emptyBook = new Book();
         labels = emptyBook.getPropertyDescriptions().keySet();
-        for (String label : labels) {
-            if (emptyBook.getProperty(label) == null) {
-                emptyBook.setProperty(label, "");
-            }
-        }
         typicalBook = new Book();
         typicalBook.setProperty("author", "Dostojevski, Fyodor");
         typicalBook.setProperty("title", "Crime and Punishment");
         typicalBook.setProperty("year", "1866");
         typicalBook.setProperty("publisher", "The Russian Messenger");
-        // Kun käyttäjä syöttää propertyt, tyhjät kentät ei jää nulleiks
-        for (String label : labels) {
-            if (typicalBook.getProperty(label) == null) {
-                typicalBook.setProperty(label, "");
-            }
-        }
+        replaceNullsWithEmpty(emptyBook);
+        replaceNullsWithEmpty(typicalBook);
         fullyDescribedBook = new Book();
         for (String label : fullyDescribedBook.getPropertyDescriptions().keySet()) {
             fullyDescribedBook.setProperty(label, label + "x");
