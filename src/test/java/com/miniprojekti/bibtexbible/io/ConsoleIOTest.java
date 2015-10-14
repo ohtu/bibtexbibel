@@ -30,7 +30,7 @@ public class ConsoleIOTest {
     @Test
     public void writePrintsTheGivenString() {
         io.write("lol");
-        assertEquals("lol\n", systemOutRule.getLog());
+        assertEquals("lol\n", systemOutRule.getLogWithNormalizedLineSeparator());
     }
       
     @Test

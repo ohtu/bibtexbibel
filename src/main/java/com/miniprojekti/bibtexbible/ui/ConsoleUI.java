@@ -49,11 +49,15 @@ public class ConsoleUI implements UI {
 
     @Override
     public void printFilename(String filename) {
+//        filename.
         io.write("All references exported to file " + filename);
     }
 
     @Override
     public void printReferences(List<Reference> references) {
+        if  (references.isEmpty()) {
+            io.write("No references.");
+        }
         int i = 1;
         for (Reference reference : references) {
             io.write(i + ") " + reference.toString());
