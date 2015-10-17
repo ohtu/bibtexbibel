@@ -5,12 +5,11 @@ import com.miniprojekti.bibtexbible.domain.Book;
 import com.miniprojekti.bibtexbible.domain.Proceedings;
 import com.miniprojekti.bibtexbible.domain.Reference;
 import com.miniprojekti.bibtexbible.domain.ReferenceList;
+import com.miniprojekti.bibtexbible.fileio.BibTexReader;
 import com.miniprojekti.bibtexbible.ui.UI;
 import com.miniprojekti.bibtexbible.fileio.Writer;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ReferenceController {
 
@@ -62,7 +61,18 @@ public class ReferenceController {
             ui.printLine("Exporting to a file was unsuccessful");
         }
     }
-
+    
+    public void importReferences() {
+        BibTexReader reader;
+        try {
+            String filename = ui.askFilename();
+            reader = new BibTexReader(filename);
+            this.references.toReferenceList(reader.read());
+        } catch (IOException ex) {
+            ui.printLine("Importing from file failed");
+        }
+    }
+    
     public List<Reference> getReferenceList() {
         return this.references.list();
     }
@@ -77,4 +87,5 @@ public class ReferenceController {
                 return new Book();
         }
     }
+
 }

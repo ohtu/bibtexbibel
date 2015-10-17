@@ -1,5 +1,6 @@
 package com.miniprojekti.bibtexbible.domain;
 
+import static com.miniprojekti.misc.Tool.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,4 +58,16 @@ public class ReferenceList {
         return ar;
     }
 
+    public void toReferenceList(String bibtexString) {  
+        this.lista.clear();
+        String[] bibtexReferences = bibtexString.split("@"); 
+        for (int i = 1; i < bibtexReferences.length; i++) {
+            Reference reference = parseReference(bibtexReferences[i]);
+            add(reference);
+        }
+    }
+    
+    
+    
+    
 }

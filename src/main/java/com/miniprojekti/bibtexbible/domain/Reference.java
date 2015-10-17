@@ -75,7 +75,7 @@ public abstract class Reference {
         s += "}";
         return replaceScandisForBibTex(s);
     }
-
+    
     /**
      * Equals compares everything except ID
      *

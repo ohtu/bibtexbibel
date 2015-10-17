@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.miniprojekti.bibtexbible.domain;
 
 import static com.miniprojekti.misc.Tool.replaceNullsWithEmpty;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 import java.util.Set;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -27,15 +18,6 @@ public class ReferenceListTest {
     private static Book kirja2;
 
     public ReferenceListTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
     }
 
     @Before
@@ -55,11 +37,7 @@ public class ReferenceListTest {
         replaceNullsWithEmpty(b);
         return b;
     }
-
-    @After
-    public void tearDown() {
-    }
-
+    
     @Test
     public void testAddReferenceOneBook() {
         refList.add(kirja1);
@@ -119,7 +97,6 @@ public class ReferenceListTest {
         assertFalse(refList.list().contains(kirja2));
     }
 
-
     @Test
     public void testDeleteMultipleReferences() {
         refList.add(kirja1);
@@ -129,4 +106,16 @@ public class ReferenceListTest {
         assertTrue(refList.list().isEmpty());
     }
 
+    @Test
+    public void testToReferenceListAddsReference() throws IOException {
+        assertEquals(0, refList.list().size());
+        String bibtexString = new StringBuilder()
+                .append(kirja1.toBibTex()).append(System.lineSeparator())
+                .append(kirja2.toBibTex()).append(System.lineSeparator())
+                .append(createNewBook("Mauri Rynnäs", "Teos1", "2015", "UGK").toBibTex())
+                .toString();
+        refList.toReferenceList(bibtexString);
+        assertEquals(3, refList.list().size());
+    }
+    
 }

@@ -25,7 +25,7 @@ public class ConsoleUI implements UI {
     @Override
     public int selectMenuOption() {
         printStartMenu();
-        return askInput(0, 4);
+        return askInput(0, 5);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ConsoleUI implements UI {
 
     @Override
     public String askFilename() {
-        printLine("Give a file name to the exported document:");
+        printLine("Enter file name:");
         while (true) {
             String name = io.readline();
             if (!name.isEmpty()) {
@@ -102,6 +102,7 @@ public class ConsoleUI implements UI {
                 + "2) List all references\n"
                 + "3) Delete reference\n"
                 + "4) Export bibtex\n"
+                + "5) Import bibtex\n"
                 + "0) Exit"
         );
     }
