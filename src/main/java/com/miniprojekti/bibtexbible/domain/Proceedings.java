@@ -16,7 +16,7 @@ public class Proceedings extends Reference {
 
     private void setPropertyDescriptions() {
         Map<String, String> propertyDescriptions = super.getPropertyDescriptions();
-        propertyDescriptions.put("title", "The tile of the publication");
+        propertyDescriptions.put("title", "The title of the publication");
         propertyDescriptions.put("year", "Publication year");
         propertyDescriptions.put("editor", "Editor of the proceedings");
         propertyDescriptions.put("address", "Address of the Publisher");

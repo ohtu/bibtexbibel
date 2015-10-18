@@ -17,7 +17,7 @@ public class Article extends Reference {
     private void setPropertyDescriptions() {
         Map<String, String> propertyDescriptions = super.getPropertyDescriptions();
         propertyDescriptions.put("author", "Author of the Title");
-        propertyDescriptions.put("title", "The tile of the publication");
+        propertyDescriptions.put("title", "The title of the publication");
         propertyDescriptions.put("year", "Publication year");
         propertyDescriptions.put("pages", "Pages in Journal where the Article is");
         propertyDescriptions.put("journal", "Journal where the Article was published");

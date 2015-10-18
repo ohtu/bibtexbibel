@@ -7,9 +7,27 @@ import com.miniprojekti.bibtexbible.ui.UI;
 
 description 'User can add reference and see it listed'
 
+scenario "user can't list references when there is none", {
+    given 'application is initiliazed correctly', {
+        io = new StubIO("2", "0")
+        ui = new ConsoleUI(io)
+        rc = new ReferenceController(ui)
+        app = new App(ui, rc)
+        app.runConsoleApp()
+    }
+    when 'correct commands are entered', {
+        prints = io.getPrints()
+    }
+    then 'user can see see no references listed', {
+        String print = prints.toString()
+        print.contains("No references.").shouldBe(true)
+    }
+}
+
 scenario "user can add reference", {
     given 'application is initiliazed correctly', {
-        io = new StubIO("1", "1", "nimi", "1", "osoite", "kuukausi", "2015", "kirjoittaja", "sarja", "julkaisija", "editio", "otsikko", "2", "0")
+        io = new StubIO("1", "1", "Kirjoittaja", "", "Titteli", "2015", "", "", "", "", "", "", "",
+                        "2", "0")
         ui = new ConsoleUI(io)
         rc = new ReferenceController(ui)
         app = new App(ui, rc)
@@ -19,16 +37,17 @@ scenario "user can add reference", {
         prints = io.getPrints()
     }
     then 'user can see reference listed', {
-        prints.toString().contains(" volume = nimi, number = 1, address = osoite, " + 
-            "month = kuukausi, year = 2015, author = kirjoittaja, series = sarja, " +
-            "publisher = julkaisija, edition = editio, title = otsikko").shouldBe(true)
+        prints.toString().contains("Book")
+        prints.toString().contains("author = Kirjoittaja")
+        prints.toString().contains("title = Titteli")
+        prints.toString().contains("year = 2015")
     }
 }
 
-scenario "user can't add duplicate reference (mikä nykyisellään on mahdollista)", {
-    given 'application is initiliazed correctly', {
-        io = new StubIO("1", "1", "nimi", "1", "osoite", "kuukausi", "2015", "kirjoittaja", "sarja", "julkaisija", "editio", "otsikko",
-                        "1", "1", "nimi", "1", "osoite", "kuukausi", "2015", "kirjoittaja", "sarja", "julkaisija", "editio", "otsikko",
+scenario "user can't add duplicate reference", {
+    given 'application is initialized correctly', {
+        io = new StubIO("1", "1", "Kirjoittaja", "", "Titteli", "2015", "", "", "", "", "", "", "",
+                        "1", "1", "Kirjoittaja", "", "Titteli", "2015", "", "", "", "", "", "", "",
                         "2", "0")
         ui = new ConsoleUI(io)
         rc = new ReferenceController(ui)
@@ -40,12 +59,9 @@ scenario "user can't add duplicate reference (mikä nykyisellään on mahdollist
     }
     then 'user can see see only ONE reference listed', {
         String print = prints.toString()
-        String pattern = " volume = nimi, number = 1, address = osoite, " + 
-            "month = kuukausi, year = 2015, author = kirjoittaja, series = sarja, " +
-            "publisher = julkaisija, edition = editio, title = otsikko"
+        String pattern = "@Book: Key = Kirj2015, author = Kirjoittaja, editor = , title = Titteli, year = 2015, publisher = , address = , volume = , number = , series = , edition = , month = "
         int count = print.length() - print.replace(pattern, "").length();
         count /= pattern.length()
-// oikeasti pitäisi olla 1 mutta jotta buildaisi niin...
-        count.shouldBe(2)
+        count.shouldBe(1)
     }
 }
