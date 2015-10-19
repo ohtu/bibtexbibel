@@ -51,4 +51,24 @@ public class ToolTest {
         String backToNormal = Tool.bibtexToScandis(s);
         assertTrue(s.equals(backToNormal));
     }
+    
+    @Test
+    public void safeSubstringWithEmptyInput() {
+        assertTrue(Tool.safeSubstring("", 3).isEmpty());
+    }
+    
+    @Test
+    public void safeSubstringBeginningOfString() {
+        assertEquals("Moi", Tool.safeSubstring("Moikka", 0, 3));
+    }
+    
+    @Test
+    public void safeSubstringMiddleOfString() {
+        assertEquals("oi", Tool.safeSubstring("Moikka", 1, 3));
+    }
+    
+    @Test
+    public void safeSubstringEndOfString() {
+        assertEquals("a", Tool.safeSubstring("Moikka", 5));
+    }
 }

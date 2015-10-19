@@ -51,15 +51,15 @@ public class ConsoleUITest {
     }
     
     @Test
-    public void selectMenuOptionDoesNotReturnInputsLessThanZeroOrMoreThanFour() {
+    public void selectMenuOptionDoesNotReturnInputsLessThanZeroOrMoreThanFive() {
         when(io.readInteger())
             .thenReturn(-1)
             .thenReturn(0)
-            .thenReturn(5)
-            .thenReturn(4);
+            .thenReturn(6)
+            .thenReturn(5);
         
         assertEquals(0, ui.selectMenuOption());
-        assertEquals(4, ui.selectMenuOption());
+        assertEquals(5, ui.selectMenuOption());
     }
     
     @Test
@@ -77,15 +77,15 @@ public class ConsoleUITest {
     }
     
     @Test
-    public void selectReferenceTypeDoesNotReturnInputsLessThanZeroOrMoreThanThree() {
+    public void selectReferenceTypeDoesNotReturnInputsLessThanZeroOrMoreThanFour() {
         when(io.readInteger())
             .thenReturn(-1)
             .thenReturn(0)
-            .thenReturn(4)
-            .thenReturn(3);
+            .thenReturn(5)
+            .thenReturn(4);
         
         assertEquals(0, ui.selectReferenceType());
-        assertEquals(3, ui.selectReferenceType());
+        assertEquals(4, ui.selectReferenceType());
     }
      
     @Test

@@ -31,6 +31,10 @@ public class ReferenceList {
             lista.remove(key);
         }
     }
+    
+    public Reference getReference(String key) {
+        return lista.get(key);
+    }
 
     public void delete(int index) {
         if (index >= 0 && index < lista.size() && lista.size() > 0) {
@@ -55,6 +59,10 @@ public class ReferenceList {
             ar.add(ref);
         }
         return ar;
+    }
+
+    public void clear() {
+        lista.clear();
     }
 
 }

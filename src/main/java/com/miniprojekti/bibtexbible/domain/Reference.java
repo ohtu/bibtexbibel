@@ -1,8 +1,6 @@
 package com.miniprojekti.bibtexbible.domain;
 
-import static com.miniprojekti.misc.Tool.getType;
-import static com.miniprojekti.misc.Tool.scandisToBibtex;
-import static com.miniprojekti.misc.Tool.truncate;
+import static com.miniprojekti.misc.Tool.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -46,9 +44,9 @@ public abstract class Reference {
         if (id == null) {
             id = "";
             if (getProperty("author") != null) {
-                id += truncate(getProperty("author")); // truncate antaa ekat 4 merkkiä
+                id += safeSubstring(getProperty("author"), 0, 4); // truncate antaa ekat 4 merkkiä
             } else if (getProperty("title") != null) {
-                id += truncate(getProperty("title"));
+                id += safeSubstring(getProperty("title"), 0, 4);
             }
             id += getProperty("year");
         }

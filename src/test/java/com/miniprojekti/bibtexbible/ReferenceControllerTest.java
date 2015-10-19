@@ -3,6 +3,9 @@ package com.miniprojekti.bibtexbible;
 import com.miniprojekti.bibtexbible.*;
 import com.miniprojekti.bibtexbible.domain.*;
 import com.miniprojekti.bibtexbible.ui.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -22,32 +25,34 @@ public class ReferenceControllerTest {
         ui = mock(ConsoleUI.class);
         controller = new ReferenceController(ui);
     }
+    
 
     @Test
     public void createAllowsNewBookReferenceToBeAdded() {
         when(ui.selectReferenceType()).thenReturn(1);
         controller.create();
-        assertEquals(1, controller.getReferenceList().size());
+        assertEquals(1, controller.getReferenceList().list().size());
     }
     
     @Test
     public void createAllowsNewArticleReferenceToBeAdded() {
         when(ui.selectReferenceType()).thenReturn(2);
         controller.create();
-        assertEquals(1, controller.getReferenceList().size());
-        assertEquals(true, controller.getReferenceList().get(0) instanceof Article);
+        assertEquals(1, controller.getReferenceList().list().size());
+        assertEquals(true, controller.getReferenceList().list().get(0) instanceof Article);
     }
     
     @Test
     public void createAllowsNewProceedingsReferenceToBeAdded() {
         when(ui.selectReferenceType()).thenReturn(3);
         controller.create();
-        assertEquals(1, controller.getReferenceList().size());
-        assertEquals(true, controller.getReferenceList().get(0) instanceof Proceedings);
+        assertEquals(1, controller.getReferenceList().list().size());
+        assertEquals(true, controller.getReferenceList().list().get(0) instanceof Proceedings);
     }
     
     @Test
     public void listPrintsAllReferences() {
+        //TODO
         controller.list();
         verify(ui).printReferences(anyList());
     }
@@ -56,10 +61,73 @@ public class ReferenceControllerTest {
     public void deleteDeletesReferenceFromReferenceList() {
         when(ui.selectReferenceType()).thenReturn(1);
         controller.create();
-        assertEquals(1, controller.getReferenceList().size());
-        List<Reference> references = controller.getReferenceList();
+        assertEquals(1, controller.getReferenceList().list().size());
+        List<Reference> references = controller.getReferenceList().list();
         when(ui.selectReferenceToDelete(references)).thenReturn(0);
         controller.delete();
-        assertEquals(0, controller.getReferenceList().size());
+        assertEquals(0, controller.getReferenceList().list().size());
     }
+    
+    @Test
+    public void testUnsuccesfulImport() {
+        controller.importBibtex();
+        when(ui.askFilename()).thenReturn("diohg8934rhoifdf.bib");
+        verify(ui).printLine("Importing from file was unsuccessful. Clearing database...");
+    }
+    
+    @Test
+    public void testSuccesfulImport() {
+        when(ui.askFilename()).thenReturn("demodb.bib");
+        controller.importBibtex();
+        HashSet<String> kaytetyt_idt = new HashSet<>();
+        List<Reference> list = controller.getReferenceList().list();
+        assertTrue(list.size() == 7); // demodb sisältää 7 referenceä
+        for (Reference r : list) {
+            int filledProperties = 0;
+            for (String label : r.getPropertyDescriptions().keySet()) {
+                assertNotNull(r.getProperty(label)); // nullit korvattu tyhjilla
+                if (!r.getProperty(label).isEmpty()) filledProperties++;
+            }
+            assertTrue(filledProperties > 0); // kaikki kentat ei saa olla tyhjia
+            assertTrue(!kaytetyt_idt.contains(r.getID()));
+            kaytetyt_idt.add(r.getID()); // sama ID ei saa esiintya 2x
+        }
+    }
+    
+    @Test
+    public void testEmptyExport() {
+        when(ui.askFilename()).thenReturn("tilapainentestitiedosto.txt");
+        controller.export();
+        verify(ui).printLine("There are no references to export");
+    }
+    
+    @Test
+    public void testSuccesfulExport() {
+        // first import
+        when(ui.askFilename()).thenReturn("demodb.bib");
+        controller.importBibtex();
+        // save result
+        List<Reference> list1 = controller.getReferenceList().list();
+        // then export
+        when(ui.askFilename()).thenReturn("tilapainentiedosto.bib");
+        controller.export();
+        // import again
+        ReferenceList refList = controller.getReferenceList();
+        refList.clear();
+        controller.importBibtex();
+        // compare each element from list1
+        assertTrue(refList.list().size() == list1.size());
+        for (Reference ref : list1) {
+            Reference verrokki = refList.getReference(ref.getID());
+            assertNotNull(verrokki);
+            for (String label : ref.getPropertyDescriptions().keySet()) {
+                String value1 = ref.getProperty(label);
+                String value2 = verrokki.getProperty(label);
+                assertEquals(value1, value2);
+            }
+        }
+        File poista = new File("tilapainentiedosto.bib");
+        poista.delete();
+    }
+    
 }

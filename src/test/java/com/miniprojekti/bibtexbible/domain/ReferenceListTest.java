@@ -128,5 +128,13 @@ public class ReferenceListTest {
         refList.delete(kirja2.getID());
         assertTrue(refList.list().isEmpty());
     }
+    
+    @Test
+    public void clearDeletesAllReferences() {
+        refList.add(kirja1);
+        refList.add(kirja2);
+        refList.clear();
+        assertTrue(refList.list().isEmpty());
+    }
 
 }

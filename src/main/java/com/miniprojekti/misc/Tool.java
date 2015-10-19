@@ -38,8 +38,12 @@ public final class Tool {
         return s;
     }
     
-    public static String truncate(String s) {
-        return s.substring(0, Math.min(4, s.length()));  
+    public static String safeSubstring(String s, int startIndex) {
+        return safeSubstring(s, startIndex, s.length());
+    }
+    public static String safeSubstring(String s, int startIndex, int desiredLength) {
+        if (s.isEmpty()) return s;
+        return s.substring(startIndex, Math.min(desiredLength, s.length()));  
     }
     
     /**

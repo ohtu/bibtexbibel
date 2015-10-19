@@ -25,13 +25,13 @@ public class ConsoleUI implements UI {
     @Override
     public int selectMenuOption() {
         printStartMenu();
-        return askInput(0, 4);
+        return askInput(0, 5);
     }
 
     @Override
     public int selectReferenceType() {
         printReferenceTypes();
-        return askInput(0, 3);
+        return askInput(0, 4);
     }
 
     @Override
@@ -120,7 +120,8 @@ public class ConsoleUI implements UI {
                 "Create reference with entry type:\n"
                 + "1) Book\n"
                 + "2) Article\n"
-                + "3) In Proceedigns\n"
+                + "3) Proceedings\n"
+                + "4) InProceedings\n"
                 + "0) Return"
         );
     }
