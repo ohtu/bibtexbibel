@@ -19,12 +19,12 @@ public final class Tool {
 
     public static String replaceScandisForBibTex(String s) {
         new Tool(); // testikattavuus 100%
-        s = s.replace("ö", "\\\"{o}"); //   \"{o}
-        s = s.replace("Ö", "\\\"{O}"); //   \"{O} arvattu - testaa!
-        s = s.replace("Ä", "{\\\"A}"); //   {\"A} arvattu - testaa!
-        s = s.replace("ä", "{\\\"a}"); //   {\"a}
-        s = s.replace("Å", "\\AA"); //      \AA
-        s = s.replace("å", "\\aa"); //      \aa
+        s = s.replace("ö", "{\\\"o}"); //   {\"o}
+        s = s.replace("Ö", "{\\\"O}"); 
+        s = s.replace("Ä", "{\\\"A}"); 
+        s = s.replace("ä", "{\\\"a}");
+        s = s.replace("Å", "{\\AA}");
+        s = s.replace("å", "{\\aa}");
         return s;
     }
     

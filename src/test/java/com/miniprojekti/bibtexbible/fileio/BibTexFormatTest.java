@@ -35,7 +35,7 @@ public class BibTexFormatTest {
     
     @BeforeClass
     public static void setUpClass() throws IOException {
-        file = new File("sigproc.bib");
+        file = new File("pdf-kaantaja/sigproc.bib");
         writer = new Writer(file);
     }
     
@@ -58,7 +58,7 @@ public class BibTexFormatTest {
         
         Book book1 = new Book();
         book1.setID("SWEBOK");
-        book1.setProperty("publisher", "IEEE Computer Society");
+        book1.setProperty("publisher", "IEEE Computer SocietyäÄöÖåÅ");
         book1.setProperty("editor", "Abram, Aman and More, James W. and Bourgue Pierre and Dupuis Robert");
         book1.setProperty("year", "2004");
         book1.setProperty("title", "Guide to the Software Engineering Body of Knownledge");
