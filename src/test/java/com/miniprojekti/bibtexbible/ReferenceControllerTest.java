@@ -103,28 +103,19 @@ public class ReferenceControllerTest {
     
     @Test
     public void testSuccesfulExport() {
-        // first import
+        // import -> export -> clear -> import again -> compare to original
         when(ui.askFilename()).thenReturn("demodb.bib");
         controller.importBibtex();
-        // save result
-        List<Reference> list1 = controller.getReferenceList().list();
-        // then export
+        List<Reference> original = controller.getReferenceList().list();
         when(ui.askFilename()).thenReturn("tilapainentiedosto.bib");
         controller.export();
-        // import again
         ReferenceList refList = controller.getReferenceList();
         refList.clear();
         controller.importBibtex();
-        // compare each element from list1
-        assertTrue(refList.list().size() == list1.size());
-        for (Reference ref : list1) {
+        assertTrue(refList.list().size() == original.size());
+        for (Reference ref : original) {
             Reference verrokki = refList.getReference(ref.getID());
-            assertNotNull(verrokki);
-            for (String label : ref.getPropertyDescriptions().keySet()) {
-                String value1 = ref.getProperty(label);
-                String value2 = verrokki.getProperty(label);
-                assertEquals(value1, value2);
-            }
+            assertEquals(ref, verrokki);
         }
         File poista = new File("tilapainentiedosto.bib");
         poista.delete();

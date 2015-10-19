@@ -81,6 +81,7 @@ public abstract class Reference {
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null && this != null) return false;
         if (obj.getClass() != this.getClass()) {
             return false;
         }
