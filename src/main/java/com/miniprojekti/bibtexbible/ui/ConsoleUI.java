@@ -109,6 +109,7 @@ public class ConsoleUI implements UI {
                 + "2) List all references\n"
                 + "3) Delete reference\n"
                 + "4) Export bibtex\n"
+                + "5) Import bibtex\n"
                 + "0) Exit"
         );
     }

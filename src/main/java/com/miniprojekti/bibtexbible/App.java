@@ -40,6 +40,9 @@ public class App {
             case (4):
                 this.controller.export();
                 break;
+            case (5):
+                this.controller.importBibtex();
+                break;
             case (0):
                 return false;
             default:

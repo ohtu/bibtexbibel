@@ -6,7 +6,7 @@
 package com.miniprojekti.bibtexbible.domain;
 
 import static com.miniprojekti.misc.Tool.replaceNullsWithEmpty;
-import static com.miniprojekti.misc.Tool.replaceScandisForBibTex;
+import static com.miniprojekti.misc.Tool.scandisToBibtex;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -144,7 +144,7 @@ public class ArticleTest {
             assertTrue(rivi.length == 2);
             String label = rivi[0].trim();
             String expected = article.getProperty(label);
-            expected = replaceScandisForBibTex(expected);
+            expected = scandisToBibtex(expected);
             String found = rivi[1].trim();
             found = found.substring(1);
             found = found.substring(0, found.length()-2); // lopusta pois " ja ,

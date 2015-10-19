@@ -1,7 +1,7 @@
 package com.miniprojekti.bibtexbible.domain;
 
 import static com.miniprojekti.misc.Tool.getType;
-import static com.miniprojekti.misc.Tool.replaceScandisForBibTex;
+import static com.miniprojekti.misc.Tool.scandisToBibtex;
 import static com.miniprojekti.misc.Tool.truncate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,7 +73,7 @@ public abstract class Reference {
             s += label + " = " + "\"" + value + "\"" + ", \r\n";
         }
         s += "}";
-        return replaceScandisForBibTex(s);
+        return scandisToBibtex(s);
     }
 
     /**

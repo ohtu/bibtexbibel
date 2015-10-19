@@ -17,7 +17,7 @@ public final class Tool {
     private Tool() {
     }
 
-    public static String replaceScandisForBibTex(String s) {
+    public static String scandisToBibtex(String s) {
         new Tool(); // testikattavuus 100%
         s = s.replace("ö", "{\\\"o}"); //   {\"o}
         s = s.replace("Ö", "{\\\"O}"); 
@@ -25,6 +25,16 @@ public final class Tool {
         s = s.replace("ä", "{\\\"a}");
         s = s.replace("Å", "{\\AA}");
         s = s.replace("å", "{\\aa}");
+        return s;
+    }
+    
+    public static String bibtexToScandis(String s) {
+        s = s.replace("{\\\"o}", "ö"); //   {\"o}
+        s = s.replace("{\\\"O}", "Ö"); 
+        s = s.replace("{\\\"A}", "Ä"); 
+        s = s.replace("{\\\"a}", "ä");
+        s = s.replace("{\\AA}", "Å");
+        s = s.replace("{\\aa}", "å");
         return s;
     }
     

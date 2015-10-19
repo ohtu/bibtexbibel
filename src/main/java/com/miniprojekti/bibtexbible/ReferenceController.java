@@ -62,6 +62,13 @@ public class ReferenceController {
             ui.printLine("Exporting to a file was unsuccessful");
         }
     }
+    
+    public void importBibtex() {
+        // haasteena tietää, missä yksi entry loppuu ja toinen alkaa
+        //      ..erikoismerkkejä {}"" yms voi olla myös bibtex sisällä
+        // yhden entryn sisällä voidaan olettaa että propertyt omilla riveillä
+        // String ääkköset = Tool.bibTexToScandis(luettu)
+    }
 
     public List<Reference> getReferenceList() {
         return this.references.list();

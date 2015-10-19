@@ -70,4 +70,18 @@ public class AppTest {
         this.consoleApp.runConsoleApp();
         verify(this.refController).delete();
     }
+    
+    @Test(timeout = 1000)
+    public void testConsoleAppCallsExport() {
+        when(consoleUI.selectMenuOption()).thenReturn(4).thenReturn(0);
+        this.consoleApp.runConsoleApp();
+        verify(this.refController).export();
+    }
+    
+    @Test(timeout = 1000)
+    public void testConsoleAppCallsImportBibtex() {
+        when(consoleUI.selectMenuOption()).thenReturn(5).thenReturn(0);
+        this.consoleApp.runConsoleApp();
+        verify(this.refController).importBibtex();
+    }
 }
