@@ -64,26 +64,3 @@ scenario "user can't add duplicate reference", {
         count.shouldBe(1)
     }
 }
-
-scenario "user can add several references and list them", {
-    given 'application is initialized correctly', {
-        io = new StubIO("1", "1", "Kirjoittaja1", "", "Titteli1", "2013", "", "", "", "", "", "", "",
-                        "1", "1", "Kirjoittaja2", "", "Titteli2", "2014", "", "", "", "", "", "", "",
-                        "1", "1", "Kirjoittaja3", "", "Titteli3", "2015", "", "", "", "", "", "", "",
-                        "2", "0")
-        
-        rc = new ReferenceController()        
-        ui = new ConsoleUI(io,rc)
-        ui.run();
-    }
-    when 'correct commands are entered', {
-        prints = io.getPrints()
-    }
-    then 'user can see see only THREE references listed', {
-        String print = prints.toString()
-        print.contains("1) @Book: Key = Kirj2013, author = Kirjoittaja1, editor = , title = Titteli1, year = 2013, publisher = , address = , volume = , number = , series = , edition = , month = ,").shouldBe true
-        print.contains("2) @Book: Key = null1, author = Kirjoittaja2, editor = , title = Titteli2, year = 2014, publisher = , address = , volume = , number = , series = , edition = , month = ,").shouldBe true
-        print.contains("3) @Book: Key = null2, author = Kirjoittaja3, editor = , title = Titteli3, year = 2015, publisher = , address = , volume = , number = , series = , edition = , month = ,").shouldBe true
-        print.contains("4) @").shouldBe false
-    }
-}
