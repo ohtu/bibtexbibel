@@ -50,4 +50,36 @@ public class WriterTest {
             Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @Test
+    public void testFilename() {
+        try {
+            File mockFile = folder.newFile("mock.bib");
+            Writer writer = new Writer("mock.bib");
+            writer.close();
+            assertTrue(writer.getFilename().equals("mock.bib"));
+        }
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex) {
+            Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Test
+    public void testAddsBibToFilename() {
+        try {
+            File mockFile = folder.newFile("tiedosto.bib");
+            Writer writer = new Writer("tiedosto");
+            writer.close();
+            assertTrue(writer.getFilename().equals("tiedosto.bib"));
+        }
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex) {
+            Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

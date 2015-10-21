@@ -10,9 +10,7 @@ public class Writer {
     private String filename;
 
     public Writer(String filename) throws IOException {
-        if (!filename.endsWith(".bib")) {
-            filename += ".bib";
-        }
+        this.filename = !filename.endsWith(".bib") ? filename + ".bib" : filename;
         fileWriter = new FileWriter(new File(filename));
     }
 
@@ -44,5 +42,4 @@ public class Writer {
     public String getFilename() {
         return filename;
     }
-
 }

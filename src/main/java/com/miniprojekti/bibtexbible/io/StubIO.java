@@ -19,36 +19,14 @@ public class StubIO implements IO {
 
     public StubIO(String... inputs) {
         this.input = inputs;
-        this.index=0;
+        this.index = 0;
         prints = new ArrayList<String>();
     }
-/*
-    public void print(String toPrint) {
-        prints.add(toPrint);
-    }
-
-    public int readInt(String prompt) {
-        print(prompt);
-        return Integer.parseInt(input[index++]);
-    }
 
     public ArrayList<String> getPrints() {
-        return prints;
-    }
-
-    public String readLine(String prompt) {
-        print(prompt);
-        if (index < input.length) {
-            return input[index++];
-        }
-        return "";
-    }*/
-
-    public ArrayList<String> getPrints() {
-//        System.out.println(this.prints.toString());
         return this.prints;
     }
-    
+
     @Override
     public String readline() {
         return this.input[this.index++];
@@ -62,6 +40,5 @@ public class StubIO implements IO {
     @Override
     public void write(String output) {
         this.prints.add(output);
-//        System.out.println(output);
     }
 }
