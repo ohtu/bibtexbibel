@@ -18,7 +18,6 @@ public final class Tool {
     }
 
     public static String scandisToBibtex(String s) {
-        new Tool(); // testikattavuus 100%
         s = s.replace("ö", "{\\\"o}"); //   {\"o}
         s = s.replace("Ö", "{\\\"O}"); 
         s = s.replace("Ä", "{\\\"A}"); 
@@ -51,7 +50,7 @@ public final class Tool {
      * Testeissä luotavissa reference-olioissa pitää vastaavasti
      * korvata nullit tyhjillä stringeillä
      */
-    public static void replaceNullsWithEmpty(Reference r) {
+    public static void addMissingProperties(Reference r) {
         Set<String> labels = r.getPropertyDescriptions().keySet();
         for (String label : labels) {
             if (r.getProperty(label) == null) {

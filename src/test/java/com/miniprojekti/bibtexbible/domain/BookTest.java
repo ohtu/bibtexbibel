@@ -1,6 +1,6 @@
 package com.miniprojekti.bibtexbible.domain;
 
-import static com.miniprojekti.misc.Tool.replaceNullsWithEmpty;
+import static com.miniprojekti.misc.Tool.addMissingProperties;
 import static com.miniprojekti.misc.Tool.scandisToBibtex;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,8 +29,8 @@ public class BookTest {
         typicalBook.setProperty("title", "Crime and Punishment");
         typicalBook.setProperty("year", "1866");
         typicalBook.setProperty("publisher", "The Russian Messenger");
-        replaceNullsWithEmpty(emptyBook);
-        replaceNullsWithEmpty(typicalBook);
+        addMissingProperties(emptyBook);
+        addMissingProperties(typicalBook);
         fullyDescribedBook = new Book();
         for (String label : fullyDescribedBook.getPropertyDescriptions().keySet()) {
             fullyDescribedBook.setProperty(label, label + "x");

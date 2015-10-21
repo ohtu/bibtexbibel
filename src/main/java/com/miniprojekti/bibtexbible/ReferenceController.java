@@ -76,7 +76,6 @@ public class ReferenceController {
         try {
             Scanner scanner = new Scanner(new File(filename));
             Reference ref = new Book(); // to initialize variable
-            ArrayList<Reference> addLater = new ArrayList<>();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 line = Tool.bibtexToScandis(line);
@@ -92,7 +91,8 @@ public class ReferenceController {
                     if (type.equals("InProceedings")) ref = new InProceedings();
                     if (type.equals("Proceedings")) ref = new Proceedings();
                     ref.setID(id);
-                    addLater.add(ref);
+                    Tool.addMissingProperties(ref);
+                    references.add(ref);
                 } else if (!line.isEmpty()) {
                     // Kirjataan yksi property ylös
                     String[] split = line.split("=", 2);
@@ -100,10 +100,6 @@ public class ReferenceController {
                     String value = safeSubstring(split[1], 2, split[1].length()-3);
                     ref.setProperty(label, value);
                 }
-            }
-            for (Reference r : addLater) {
-                Tool.replaceNullsWithEmpty(r);
-                references.add(r);
             }
             ui.printLine("Much import very success wow!");
         }

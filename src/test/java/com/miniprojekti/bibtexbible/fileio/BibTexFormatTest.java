@@ -10,7 +10,7 @@ import com.miniprojekti.bibtexbible.domain.Book;
 import com.miniprojekti.bibtexbible.domain.InProceedings;
 import com.miniprojekti.bibtexbible.domain.Reference;
 import com.miniprojekti.bibtexbible.domain.ReferenceList;
-import static com.miniprojekti.misc.Tool.replaceNullsWithEmpty;
+import static com.miniprojekti.misc.Tool.addMissingProperties;
 import java.io.File;
 import java.io.IOException;
 import org.junit.After;
@@ -62,7 +62,7 @@ public class BibTexFormatTest {
         book1.setProperty("editor", "Abram, Aman and More, James W. and Bourgue Pierre and Dupuis Robert");
         book1.setProperty("year", "2004");
         book1.setProperty("title", "Guide to the Software Engineering Body of Knownledge");
-        replaceNullsWithEmpty(book1);
+        addMissingProperties(book1);
         
         Book book2 = new Book();
         book2.setID("BA04");
@@ -70,7 +70,7 @@ public class BibTexFormatTest {
         book2.setProperty("title", "Extreme Programming Explained: Embrace Change (2nd Edition)");
         book2.setProperty("year", "2004");
         book2.setProperty("publisher", "Addison-Wesley Professional");
-        replaceNullsWithEmpty(book2);
+        addMissingProperties(book2);
         
         Book book3 = new Book();
         book3.setID("Martin09");
@@ -78,7 +78,7 @@ public class BibTexFormatTest {
         book3.setProperty("title", "Clean Code: A Handbook of Agile Software Craftsmanship");
         book3.setProperty("year", "2008");
         book3.setProperty("publisher", "Prentice Hall");
-        replaceNullsWithEmpty(book3);
+        addMissingProperties(book3);
         
         Book book4 = new Book();
         book4.setID("scrum");
@@ -86,7 +86,7 @@ public class BibTexFormatTest {
         book4.setProperty("title", "Agile Software Development with SCRUM");
         book4.setProperty("year", "2002");
         book4.setProperty("publisher", "Prentice Hall");
-        replaceNullsWithEmpty(book4);
+        addMissingProperties(book4);
         
         Article article = new Article();
         article.setID("fox");
@@ -100,7 +100,7 @@ public class BibTexFormatTest {
         article.setProperty("pages", "44--49");
         article.setProperty("publisher", "ACM");
         article.setProperty("address", "New york, NY, USA");
-        replaceNullsWithEmpty(article);
+        addMissingProperties(article);
         
         InProceedings inproceedings1 = new InProceedings();
         inproceedings1.setID("Begel_2008");
@@ -109,7 +109,7 @@ public class BibTexFormatTest {
         inproceedings1.setProperty("booktitle", "Proceedings of the SIGCSE '08");
         inproceedings1.setProperty("year", "2008");
         inproceedings1.setProperty("publisher", "ACM");
-        replaceNullsWithEmpty(inproceedings1);
+        addMissingProperties(inproceedings1);
         
         InProceedings inproceedings2 = new InProceedings();
         inproceedings2.setID("royce70");
@@ -119,7 +119,7 @@ public class BibTexFormatTest {
         inproceedings2.setProperty("organization", "TeX Users Group");
         inproceedings2.setProperty("month", "August");
         inproceedings2.setProperty("year", "1970");
-        replaceNullsWithEmpty(inproceedings2);
+        addMissingProperties(inproceedings2);
 
         references.add(book1);
         references.add(book2);

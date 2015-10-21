@@ -5,7 +5,7 @@
  */
 package com.miniprojekti.bibtexbible.domain;
 
-import static com.miniprojekti.misc.Tool.replaceNullsWithEmpty;
+import static com.miniprojekti.misc.Tool.addMissingProperties;
 import static com.miniprojekti.misc.Tool.scandisToBibtex;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,8 +42,8 @@ public class ArticleTest {
         typicalArticle.setProperty("year", "1866");
         typicalArticle.setProperty("journal", "Journal of Nature");
         typicalArticle.setProperty("volume", "Volume 58");
-        replaceNullsWithEmpty(emptyArticle);
-        replaceNullsWithEmpty(typicalArticle);
+        addMissingProperties(emptyArticle);
+        addMissingProperties(typicalArticle);
         fullyDescribedArticle = new Article();
         for (String label : fullyDescribedArticle.getPropertyDescriptions().keySet()) {
             fullyDescribedArticle.setProperty(label, label + "x");

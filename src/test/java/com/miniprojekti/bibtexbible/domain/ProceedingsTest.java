@@ -6,7 +6,7 @@
 package com.miniprojekti.bibtexbible.domain;
 
 import com.miniprojekti.misc.Tool;
-import static com.miniprojekti.misc.Tool.replaceNullsWithEmpty;
+import static com.miniprojekti.misc.Tool.addMissingProperties;
 import static com.miniprojekti.misc.Tool.scandisToBibtex;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,8 +40,8 @@ public class ProceedingsTest {
         typicalProceedings = new Proceedings();
         typicalProceedings.setProperty("title", "Taloyhtiön vuosikokous");
         typicalProceedings.setProperty("year", "2015");
-        replaceNullsWithEmpty(emptyProceedings);
-        replaceNullsWithEmpty(typicalProceedings);
+        addMissingProperties(emptyProceedings);
+        addMissingProperties(typicalProceedings);
         fullyDescribedProceedings = new Proceedings();
         for (String label : fullyDescribedProceedings.getPropertyDescriptions().keySet()) {
             fullyDescribedProceedings.setProperty(label, label + "x");

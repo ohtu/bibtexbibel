@@ -5,7 +5,7 @@
  */
 package com.miniprojekti.bibtexbible.domain;
 
-import static com.miniprojekti.misc.Tool.replaceNullsWithEmpty;
+import static com.miniprojekti.misc.Tool.addMissingProperties;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -52,7 +52,7 @@ public class ReferenceListTest {
         b.setProperty("title", title);
         b.setProperty("year", year);
         b.setProperty("publisher", publisher);
-        replaceNullsWithEmpty(b);
+        addMissingProperties(b);
         return b;
     }
 
