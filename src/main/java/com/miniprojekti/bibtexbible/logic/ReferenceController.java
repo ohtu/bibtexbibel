@@ -1,4 +1,4 @@
-package com.miniprojekti.bibtexbible;
+package com.miniprojekti.bibtexbible.logic;
 
 import com.miniprojekti.bibtexbible.domain.Article;
 import com.miniprojekti.bibtexbible.domain.Book;
@@ -6,70 +6,56 @@ import com.miniprojekti.bibtexbible.domain.InProceedings;
 import com.miniprojekti.bibtexbible.domain.Proceedings;
 import com.miniprojekti.bibtexbible.domain.Reference;
 import com.miniprojekti.bibtexbible.domain.ReferenceList;
-import com.miniprojekti.bibtexbible.ui.UI;
 import com.miniprojekti.bibtexbible.fileio.Writer;
 import com.miniprojekti.misc.Tool;
 import static com.miniprojekti.misc.Tool.safeSubstring;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ReferenceController {
 
-    private final UI ui;
     private final ReferenceList references;
 
-    public ReferenceController(UI ui) {
-        this.ui = ui;
+    public ReferenceController() {
         references = new ReferenceList();
     }
 
-    public void create() {
-        int type = ui.selectReferenceType();
-        if (type == 0) {
-            return;
-        }
-        Reference reference = createReference(type);
-
-        ui.setProperties(reference);
-
-        references.add(reference);
+    public Reference create(int type) {
+        Reference ref = createReference(type);
+        references.add(ref);
+        return ref;
     }
 
-    public void list() {
-        ui.printReferences(references.list());
+    public List<Reference> list() {
+        return references.list();
     }
 
-    public void delete() {
-        int index = ui.selectReferenceToDelete(references.list());
+    public void delete(int index) {
         references.delete(index);
     }
 
-    public void export() {
+    public int export(String filename) {
         try {
             if (!references.list().isEmpty()) {
-                String filename = ui.askFilename();
                 Writer writer = new Writer(filename);
                 StringBuilder sb = new StringBuilder();
                 for (Reference reference : references.list()) {
                     writer.write(reference.toBibTex());
                 }
-                ui.printLine("All references exported to " + filename);
                 writer.close();
+                return 0;
             } else {
-                ui.printLine("There are no references to export");
+                return 2;
             }
         }
         catch (IOException ex) {
-            ui.printLine("Exporting to a file was unsuccessful");
+            return 1;
         }
-
     }
 
-    public void importBibtex() {
-        String filename = ui.askFilename();
+    public int importBibtex(String filename) {
         try {
             Scanner scanner = new Scanner(new File(filename));
             Reference ref = null;
@@ -106,11 +92,11 @@ public class ReferenceController {
                     ref.setProperty(label, value);
                 }
             }
-            ui.printLine("Much import very success wow!");
+            return 0;
         }
         catch (Exception ex) {
-            ui.printLine("Importing from file was unsuccessful. Clearing database...");
             references.clear();
+            return 1;
         }
 
     }

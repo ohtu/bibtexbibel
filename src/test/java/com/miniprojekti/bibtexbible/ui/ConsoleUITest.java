@@ -1,5 +1,6 @@
 package com.miniprojekti.bibtexbible.ui;
 
+import com.miniprojekti.bibtexbible.logic.ReferenceController;
 import com.miniprojekti.bibtexbible.domain.Book;
 import com.miniprojekti.bibtexbible.domain.Reference;
 import com.miniprojekti.bibtexbible.io.ConsoleIO;
@@ -15,11 +16,13 @@ public class ConsoleUITest {
 
     IO io;
     ConsoleUI ui;
+    ReferenceController rc;
 
     @Before
     public void setUp() {
+        rc = new ReferenceController();
         io = mock(ConsoleIO.class);
-        ui = new ConsoleUI(io);
+        ui = new ConsoleUI(io, rc);
     }
 
     @Test

@@ -12,9 +12,9 @@ scenario "user can delete reference", {
         io = new StubIO("1", "1", "Kirjoittaja", "", "Titteli", "2015", "", "", "", "", "", "", "",
                         "3", "1", "2", "0")
         ui = new ConsoleUI(io)
-        rc = new ReferenceController(ui)
-        app = new App(ui, rc)
-        app.runConsoleApp()
+        rc = new ReferenceController()        
+        ui = new ConsoleUI(io,rc)
+        ui.run();
     }
     when 'user adds a reference then deletes it', {
         prints = io.getPrints()
@@ -28,9 +28,9 @@ scenario "user can't delete when there's no references", {
     given 'application is initiliazed', {
         io = new StubIO("3", "0")
         ui = new ConsoleUI(io)
-        rc = new ReferenceController(ui)
-        app = new App(ui, rc)
-        app.runConsoleApp()
+        rc = new ReferenceController()        
+        ui = new ConsoleUI(io,rc)
+        ui.run();
     }
     when 'correct commands have been printed', {
         prints = io.getPrints()

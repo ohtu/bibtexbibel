@@ -10,10 +10,9 @@ description 'User can add reference and see it listed'
 scenario "user can't list references when there is none", {
     given 'application is initiliazed correctly', {
         io = new StubIO("2", "0")
-        ui = new ConsoleUI(io)
-        rc = new ReferenceController(ui)
-        app = new App(ui, rc)
-        app.runConsoleApp()
+        rc = new ReferenceController()        
+        ui = new ConsoleUI(io,rc)
+        ui.run();
     }
     when 'correct commands are entered', {
         prints = io.getPrints()
@@ -29,9 +28,9 @@ scenario "user can add reference", {
         io = new StubIO("1", "1", "Kirjoittaja", "", "Titteli", "2015", "", "", "", "", "", "", "",
                         "2", "0")
         ui = new ConsoleUI(io)
-        rc = new ReferenceController(ui)
-        app = new App(ui, rc)
-        app.runConsoleApp()
+        rc = new ReferenceController()        
+        ui = new ConsoleUI(io,rc)
+        ui.run();
     }
     when 'correct commands are entered', {
         prints = io.getPrints()
@@ -50,9 +49,9 @@ scenario "user can't add duplicate reference", {
                         "1", "1", "Kirjoittaja", "", "Titteli", "2015", "", "", "", "", "", "", "",
                         "2", "0")
         ui = new ConsoleUI(io)
-        rc = new ReferenceController(ui)
-        app = new App(ui, rc)
-        app.runConsoleApp()
+        rc = new ReferenceController()        
+        ui = new ConsoleUI(io,rc)
+        ui.run();
     }
     when 'correct commands are entered', {
         prints = io.getPrints()

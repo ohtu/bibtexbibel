@@ -1,5 +1,6 @@
 package com.miniprojekti.bibtexbible.ui;
 
+import com.miniprojekti.bibtexbible.logic.ReferenceController;
 import com.miniprojekti.bibtexbible.domain.Reference;
 import com.miniprojekti.bibtexbible.io.IO;
 import java.util.List;
@@ -7,9 +8,89 @@ import java.util.List;
 public class ConsoleUI implements UI {
 
     private final IO io;
+    private final ReferenceController rc;
 
-    public ConsoleUI(IO io) {
+    public ConsoleUI(IO io, ReferenceController rc) {
         this.io = io;
+        this.rc = rc;
+    }
+
+    @Override
+    public void run() {
+        init();
+        boolean running = true;
+        while (running) {
+            int action = selectMenuOption();
+            running = route(action);
+        }
+        exit();
+    }
+
+    private void create() {
+        Reference ref = rc.create(selectReferenceType());
+        setProperties(ref);
+        System.out.println(ref.getID());
+    }
+
+    private void delete() {
+        rc.delete(selectReferenceToDelete(rc.list()));
+    }
+
+    private void list() {
+        printReferences(rc.list());
+    }
+
+    private void export() {
+        String filename = askFilename();
+        switch (rc.export(filename)) {
+            case 0:
+                printLine("All references exported to " + filename);
+                break;
+
+            case 2:
+                printLine("No references to export");
+                break;
+
+            default:
+                printLine("Exporting to a file was unsuccessful");
+        }
+    }
+
+    private void importBibtex() {
+        String filename = askFilename();
+        switch (rc.importBibtex(filename)) {
+            case 0:
+                printLine("Much import very success wow!");
+                break;
+
+            default:
+                printLine("Importing from file was unsuccessful. Clearing database...");
+        }
+    }
+
+    private boolean route(int action) {
+        switch (action) {
+            case (1):
+                create();
+                break;
+            case (2):
+                list();
+                break;
+            case (3):
+                delete();
+                break;
+            case (4):
+                export();
+                break;
+            case (5):
+                importBibtex();
+                break;
+            case (0):
+                return false;
+            default:
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -22,19 +103,16 @@ public class ConsoleUI implements UI {
         printExitText();
     }
 
-    @Override
     public int selectMenuOption() {
         printStartMenu();
         return askInput(0, 5);
     }
 
-    @Override
     public int selectReferenceType() {
         printReferenceTypes();
         return askInput(0, 4);
     }
 
-    @Override
     public String askFilename() {
         printLine("Give a file name to the exported document:");
         while (true) {
@@ -53,7 +131,7 @@ public class ConsoleUI implements UI {
     }
 
     public void printReferences(List<Reference> references) {
-        if  (references.isEmpty()) {
+        if (references.isEmpty()) {
             io.write("No references.");
         }
         int i = 1;
@@ -63,12 +141,10 @@ public class ConsoleUI implements UI {
         }
     }
 
-    @Override
     public void printLine(String s) {
         io.write(s);
     }
 
-    @Override
     public int selectReferenceToDelete(List<Reference> references) {
         if (references.isEmpty()) {
             io.write("No references in the list.");
@@ -79,7 +155,6 @@ public class ConsoleUI implements UI {
         return askInput(1, references.size()) - 1;
     }
 
-    @Override
     public void setProperties(Reference reference) {
         for (String label : reference.getPropertyDescriptions().keySet()) {
             io.write(reference.getPropertyDescriptions().get(label));

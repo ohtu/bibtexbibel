@@ -1,5 +1,6 @@
-package com.miniprojekti.bibtexbible;
+package com.miniprojekti.bibtexbible.logic;
 
+import com.miniprojekti.bibtexbible.logic.ReferenceController;
 import com.miniprojekti.bibtexbible.*;
 import com.miniprojekti.bibtexbible.domain.*;
 import com.miniprojekti.bibtexbible.ui.*;
@@ -18,66 +19,56 @@ import static org.mockito.Mockito.*;
 public class ReferenceControllerTest {
 
     private ReferenceController controller;
-    private UI ui;
 
     @Before
     public void setUp() {
-        ui = mock(ConsoleUI.class);
-        controller = new ReferenceController(ui);
+        controller = new ReferenceController();
     }
 
     @Test
     public void createAllowsNewBookReferenceToBeAdded() {
-        when(ui.selectReferenceType()).thenReturn(1);
-        controller.create();
+        controller.create(1);
         assertEquals(1, controller.getReferenceList().list().size());
     }
 
     @Test
     public void createAllowsNewArticleReferenceToBeAdded() {
-        when(ui.selectReferenceType()).thenReturn(2);
-        controller.create();
+        controller.create(2);
         assertEquals(1, controller.getReferenceList().list().size());
         assertEquals(true, controller.getReferenceList().list().get(0) instanceof Article);
     }
 
     @Test
     public void createAllowsNewProceedingsReferenceToBeAdded() {
-        when(ui.selectReferenceType()).thenReturn(3);
-        controller.create();
+        controller.create(3);
         assertEquals(1, controller.getReferenceList().list().size());
         assertEquals(true, controller.getReferenceList().list().get(0) instanceof Proceedings);
     }
 
     @Test
     public void listPrintsAllReferences() {
-        //TODO
-        controller.list();
-        verify(ui).printReferences(anyList());
+        controller.create(2);
+        assertEquals(1, controller.list().size());
+        assertEquals(true, controller.list().get(0) instanceof Article);
     }
 
     @Test
     public void deleteDeletesReferenceFromReferenceList() {
-        when(ui.selectReferenceType()).thenReturn(1);
-        controller.create();
+        controller.create(1);
         assertEquals(1, controller.getReferenceList().list().size());
         List<Reference> references = controller.getReferenceList().list();
-        when(ui.selectReferenceToDelete(references)).thenReturn(0);
-        controller.delete();
+        controller.delete(0);
         assertEquals(0, controller.getReferenceList().list().size());
     }
 
     @Test
     public void testUnsuccesfulImport() {
-        controller.importBibtex();
-        when(ui.askFilename()).thenReturn("diohg8934rhoifdf.bib");
-        verify(ui).printLine("Importing from file was unsuccessful. Clearing database...");
+        assertEquals(1, controller.importBibtex("diohg8934rhoifdf.bib"));
     }
 
     @Test
     public void testSuccesfulImport() {
-        when(ui.askFilename()).thenReturn("demodb.bib");
-        controller.importBibtex();
+        controller.importBibtex("demodb.bib");
         HashSet<String> kaytetyt_idt = new HashSet<>();
         List<Reference> list = controller.getReferenceList().list();
         assertTrue(list.size() == 7); // demodb sisältää 7 referenceä
@@ -97,22 +88,18 @@ public class ReferenceControllerTest {
 
     @Test
     public void testEmptyExport() {
-        when(ui.askFilename()).thenReturn("tilapainentestitiedosto.txt");
-        controller.export();
-        verify(ui).printLine("There are no references to export");
+        assertEquals(2, controller.export("tilapainentestitiedosto.txt"));
     }
 
     @Test
     public void testSuccesfulExport() {
         // import -> export -> clear -> import again -> compare to original
-        when(ui.askFilename()).thenReturn("demodb.bib");
-        controller.importBibtex();
+        controller.importBibtex("demodb.bib");
         List<Reference> original = controller.getReferenceList().list();
-        when(ui.askFilename()).thenReturn("tilapainentiedosto.bib");
-        controller.export();
+        controller.export("tilapainentiedosto.bib");
         ReferenceList refList = controller.getReferenceList();
         refList.clear();
-        controller.importBibtex();
+        controller.importBibtex("tilapainentiedosto.bib");
         assertTrue(refList.list().size() == original.size());
         for (Reference ref : original) {
             Reference verrokki = refList.getReference(ref.getID());

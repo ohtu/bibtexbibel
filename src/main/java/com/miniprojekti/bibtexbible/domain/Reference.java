@@ -31,7 +31,7 @@ public abstract class Reference {
     public Map<String, String> getPropertyDescriptions() {
         return propertyDescriptions;
     }
-    
+
     public boolean setProperty(String label, String value) {
         if (!getPropertyDescriptions().containsKey(label)) {
             return false; // incorrect label
@@ -41,7 +41,7 @@ public abstract class Reference {
     }
 
     public String getID() {
-        if (id == null) {
+        if (id == null || id.isEmpty() || id.equals("null")) {
             id = "";
             if (getProperty("author") != null) {
                 id += safeSubstring(getProperty("author"), 0, 4); // truncate antaa ekat 4 merkkiä
@@ -67,7 +67,9 @@ public abstract class Reference {
         s += ", \r\n";
         for (String label : getPropertyDescriptions().keySet()) {
             String value = getProperty(label);
-            if (value.isEmpty()) continue;
+            if (value.isEmpty()) {
+                continue;
+            }
             s += label + " = " + "\"" + value + "\"" + ", \r\n";
         }
         s += "}";
@@ -81,7 +83,9 @@ public abstract class Reference {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null && this != null) return false;
+        if (obj == null && this != null) {
+            return false;
+        }
         if (obj.getClass() != this.getClass()) {
             return false;
         }

@@ -6,12 +6,12 @@ import java.io.IOException;
 
 public class Writer {
 
-    private FileWriter fileWriter;
+    private final FileWriter fileWriter;
     private String filename;
 
     public Writer(String filename) throws IOException {
         this.filename = !filename.endsWith(".bib") ? filename + ".bib" : filename;
-        fileWriter = new FileWriter(new File(filename));
+        fileWriter = new FileWriter(new File(this.filename));
     }
 
     /*
