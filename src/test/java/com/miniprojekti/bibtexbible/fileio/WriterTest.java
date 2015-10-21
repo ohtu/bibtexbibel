@@ -50,7 +50,7 @@ public class WriterTest {
             Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @Test
     public void testFilename() {
         try {
@@ -66,7 +66,7 @@ public class WriterTest {
             Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @Test
     public void testAddsBibToFilename() {
         try {
@@ -82,10 +82,4 @@ public class WriterTest {
             Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    @AfterClass
-    public void delete() {
-        folder.delete();
-    }
-
 }
