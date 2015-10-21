@@ -7,15 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
-import static org.mockito.Mockito.mock;
 
 public class WriterTest {
 
@@ -50,14 +45,18 @@ public class WriterTest {
             Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Test
     public void testFilename() {
         try {
-            File mockFile = folder.newFile("mock.bib");
-            Writer writer = new Writer("mock.bib");
+            Writer writer = new Writer("tiedosto.bib");
             writer.close();
-            assertTrue(writer.getFilename().equals("mock.bib"));
+            assertTrue(writer.getFile().getName().equals("tiedosto.bib"));
+            File file = writer.getFile();
+            if (file.exists()) {
+                file.delete();
+            }
+            
         }
         catch (FileNotFoundException ex) {
             Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,14 +65,17 @@ public class WriterTest {
             Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Test
     public void testAddsBibToFilename() {
         try {
-            File mockFile = folder.newFile("tiedosto.bib");
             Writer writer = new Writer("tiedosto");
             writer.close();
-            assertTrue(writer.getFilename().equals("tiedosto.bib"));
+            assertTrue(writer.getFile().getName().equals("tiedosto.bib"));
+            File file = writer.getFile();
+            if (file.exists()) {
+                file.delete();
+            }
         }
         catch (FileNotFoundException ex) {
             Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);

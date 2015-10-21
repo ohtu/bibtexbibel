@@ -8,10 +8,12 @@ public class Writer {
 
     private final FileWriter fileWriter;
     private String filename;
+    private File file;
 
     public Writer(String filename) throws IOException {
         this.filename = !filename.endsWith(".bib") ? filename + ".bib" : filename;
-        fileWriter = new FileWriter(new File(this.filename));
+        file = new File(this.filename);
+        fileWriter = new FileWriter(file);
     }
 
     /*
@@ -28,8 +30,8 @@ public class Writer {
     public void close() throws IOException {
         fileWriter.close();
     }
-
-    public String getFilename() {
-        return filename;
+    
+    public File getFile() {
+        return file;
     }
 }
