@@ -87,8 +87,6 @@ public class ConsoleUI implements UI {
                 break;
             case (0):
                 return false;
-            default:
-                break;
         }
         return true;
     }
