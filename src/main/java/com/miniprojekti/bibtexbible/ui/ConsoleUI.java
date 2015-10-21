@@ -16,28 +16,21 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public void run() {
-        init();
+    public boolean run() {
+        printIntroText();
         boolean running = true;
         while (running) {
             int action = selectMenuOption();
             running = route(action);
         }
-        exit();
+        printExitText();
+        return false;
     }
 
     private void create() {
         Reference ref = rc.create(selectReferenceType());
         setProperties(ref);
         System.out.println(ref.getID());
-    }
-
-    private void delete() {
-        rc.delete(selectReferenceToDelete(rc.list()));
-    }
-
-    private void list() {
-        printReferences(rc.list());
     }
 
     private void export() {
@@ -74,10 +67,10 @@ public class ConsoleUI implements UI {
                 create();
                 break;
             case (2):
-                list();
+                printReferences(rc.list());
                 break;
             case (3):
-                delete();
+                rc.delete(selectReferenceToDelete(rc.list()));
                 break;
             case (4):
                 export();
@@ -91,16 +84,6 @@ public class ConsoleUI implements UI {
                 break;
         }
         return true;
-    }
-
-    @Override
-    public void init() {
-        printIntroText();
-    }
-
-    @Override
-    public void exit() {
-        printExitText();
     }
 
     public int selectMenuOption() {
@@ -125,14 +108,10 @@ public class ConsoleUI implements UI {
         }
     }
 
-    public void printFilename(String filename) {
-//        filename.
-        io.write("All references exported to file " + filename);
-    }
-
     public void printReferences(List<Reference> references) {
         if (references.isEmpty()) {
             io.write("No references.");
+            return;
         }
         int i = 1;
         for (Reference reference : references) {

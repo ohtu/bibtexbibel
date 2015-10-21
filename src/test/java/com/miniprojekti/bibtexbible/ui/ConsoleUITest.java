@@ -5,7 +5,9 @@ import com.miniprojekti.bibtexbible.domain.Book;
 import com.miniprojekti.bibtexbible.domain.Reference;
 import com.miniprojekti.bibtexbible.io.ConsoleIO;
 import com.miniprojekti.bibtexbible.io.IO;
+import com.miniprojekti.bibtexbible.io.StubIO;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,18 +25,6 @@ public class ConsoleUITest {
         rc = new ReferenceController();
         io = mock(ConsoleIO.class);
         ui = new ConsoleUI(io, rc);
-    }
-
-    @Test
-    public void initPrintsIntroText() {
-        ui.init();
-        verify(io, times(1)).write(anyString());
-    }
-
-    @Test
-    public void exitPrintsExitText() {
-        ui.exit();
-        verify(io, times(1)).write(anyString());
     }
 
     @Test
@@ -92,6 +82,13 @@ public class ConsoleUITest {
     }
 
     @Test
+    public void routerCanExit() {
+        when(io.readInteger())
+                .thenReturn(0);
+        assertEquals(false, ui.run());
+    }
+
+    @Test
     public void selectReferenceToDeleteReturnsValidIndexIfReferencesExist() {
         List<Reference> references = new ArrayList<>();
         references.add(new Book());
@@ -114,6 +111,20 @@ public class ConsoleUITest {
         references.add(new Book());
         ui.printReferences(references);
         verify(io, times(3)).write(anyString());
+    }
+
+    @Test
+    public void testRunPrintsInstructions() {
+        ui.run();
+        verify(io, times(3)).write(anyString());
+    }
+
+    @Test
+    public void printNoReferencesWhenListIsEmpty() {
+        StubIO stubb = new StubIO();
+        ArrayList<String> prints = new ArrayList<>(Arrays.asList("No references."));
+        ui.printReferences(new ArrayList<Reference>());
+        verify(io, times(1)).write("No references.");
     }
 
     @Test
@@ -163,16 +174,4 @@ public class ConsoleUITest {
         assertEquals(year, reference.getProperty("year"));
         assertEquals(publisher, reference.getProperty("publisher"));
     }
-
-//    @Test
-//    public void printExportTextCallsIOWrite() {
-//        ui.printExportText();
-//        verify(io).write(anyString());
-//    }
-//    
-//    @Test
-//    public void printFileWriteErrorCallsIoWrite() {
-//        ui.printExportText();
-//        verify(io).write(anyString());
-//    }
 }
