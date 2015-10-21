@@ -81,6 +81,24 @@ public class ConsoleUITest {
         assertEquals(4, ui.selectReferenceType());
     }
 
+   
+
+    @Test
+    public void routerCanDelete() {
+        when(io.readInteger())
+                .thenReturn(3).thenReturn(0);
+        ui.run();
+        verify(io, times(1)).write("No references in the list.");
+    }
+
+    @Test
+    public void routerCanList() {
+        when(io.readInteger())
+                .thenReturn(2).thenReturn(0);
+        ui.run();
+        verify(io, times(1)).write("No references.");
+    }
+
     @Test
     public void routerCanExit() {
         when(io.readInteger())

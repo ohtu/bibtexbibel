@@ -30,7 +30,14 @@ public class ConsoleUI implements UI {
     private void create() {
         Reference ref = rc.create(selectReferenceType());
         setProperties(ref);
-        System.out.println(ref.getID());
+    }
+
+    private void delete() {
+        rc.delete(selectReferenceToDelete(rc.list()));
+    }
+
+    private void list() {
+        printReferences(rc.list());
     }
 
     private void export() {
@@ -67,10 +74,10 @@ public class ConsoleUI implements UI {
                 create();
                 break;
             case (2):
-                printReferences(rc.list());
+                list();
                 break;
             case (3):
-                rc.delete(selectReferenceToDelete(rc.list()));
+                delete();
                 break;
             case (4):
                 export();
