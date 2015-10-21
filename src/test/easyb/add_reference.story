@@ -1,5 +1,5 @@
 import org.junit.contrib.java.lang.system.SystemOutRule;
-import com.miniprojekti.bibtexbible.*;
+import com.miniprojekti.bibtexbible.logic.*;
 import com.miniprojekti.bibtexbible.io.StubIO;
 import com.miniprojekti.bibtexbible.io.IO;
 import com.miniprojekti.bibtexbible.ui.ConsoleUI;
@@ -27,7 +27,7 @@ scenario "user can add reference", {
     given 'application is initiliazed correctly', {
         io = new StubIO("1", "1", "Kirjoittaja", "", "Titteli", "2015", "", "", "", "", "", "", "",
                         "2", "0")
-        ui = new ConsoleUI(io)
+        
         rc = new ReferenceController()        
         ui = new ConsoleUI(io,rc)
         ui.run();
@@ -48,7 +48,7 @@ scenario "user can't add duplicate reference", {
         io = new StubIO("1", "1", "Kirjoittaja", "", "Titteli", "2015", "", "", "", "", "", "", "",
                         "1", "1", "Kirjoittaja", "", "Titteli", "2015", "", "", "", "", "", "", "",
                         "2", "0")
-        ui = new ConsoleUI(io)
+        
         rc = new ReferenceController()        
         ui = new ConsoleUI(io,rc)
         ui.run();
