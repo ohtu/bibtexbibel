@@ -68,7 +68,7 @@ public class ConsoleUI implements UI {
         }
     }
 
-    private boolean route(int action) {
+    public boolean route(int action) {
         switch (action) {
             case (1):
                 create();

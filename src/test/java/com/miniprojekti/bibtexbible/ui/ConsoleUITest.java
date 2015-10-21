@@ -81,7 +81,32 @@ public class ConsoleUITest {
         assertEquals(4, ui.selectReferenceType());
     }
 
-   
+    @Test
+    public void routerCanImport() {
+        when(io.readline())
+                .thenReturn("a");
+        ui.route(5);
+        verify(io, times(1)).write("Give a file name to the exported document:");
+    }
+
+    @Test
+    public void routerCanExport() {
+        when(io.readline())
+                .thenReturn("b");
+        ui.route(4);
+        verify(io, times(1)).write("Give a file name to the exported document:");
+    }
+
+    @Test
+    public void routerCanCreate() {
+        ui.route(1);
+        verify(io, times(1)).write("Create reference with entry type:\n"
+                + "1) Book\n"
+                + "2) Article\n"
+                + "3) Proceedings\n"
+                + "4) InProceedings\n"
+                + "0) Return");
+    }
 
     @Test
     public void routerCanDelete() {
