@@ -30,7 +30,7 @@ public class WriterTest {
         try {
             File mockFile = folder.newFile("mock.bib");
             Writer writer = new Writer(mockFile);
-            writer.writeLine("Yksi kaksi kolme\n"
+            writer.write("Yksi kaksi kolme\n"
                     + "Yksi kaksi kolme");
             writer.close();
             BufferedReader br;
@@ -50,7 +50,7 @@ public class WriterTest {
             Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Test
     public void testFilename() {
         try {
@@ -66,7 +66,7 @@ public class WriterTest {
             Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Test
     public void testAddsBibToFilename() {
         try {
@@ -82,4 +82,10 @@ public class WriterTest {
             Logger.getLogger(WriterTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @AfterClass
+    public void delete() {
+        folder.delete();
+    }
+
 }

@@ -21,18 +21,8 @@ public class Writer {
         fileWriter = new FileWriter(file);
     }
 
-    public void writeLine(String line) throws IOException {
-        fileWriter.write(line);
-        fileWriter.write(System.lineSeparator());
-
-    }
-
     public void write(String string) throws IOException {
         fileWriter.write(string);
-    }
-
-    public void endLine() throws IOException {
-        fileWriter.write(System.lineSeparator());
     }
 
     public void close() throws IOException {
