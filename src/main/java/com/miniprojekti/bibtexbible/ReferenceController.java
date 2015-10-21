@@ -48,17 +48,14 @@ public class ReferenceController {
     }
 
     public void export() {
-        Writer writer;
         try {
-            if (references.list().size() != 0) {
+            if (!references.list().isEmpty()) {
                 String filename = ui.askFilename();
-                writer = new Writer(filename);
+                Writer writer = new Writer(filename);
                 StringBuilder sb = new StringBuilder();
                 for (Reference reference : references.list()) {
-                    //sb.append(reference.toBibTex());
                     writer.write(reference.toBibTex());
                 }
-                //writer.write(sb.toString());
                 ui.printLine("All references exported to " + filename);
                 writer.close();
             } else {
@@ -68,36 +65,44 @@ public class ReferenceController {
         catch (IOException ex) {
             ui.printLine("Exporting to a file was unsuccessful");
         }
-        
+
     }
-    
+
     public void importBibtex() {
         String filename = ui.askFilename();
         try {
             Scanner scanner = new Scanner(new File(filename));
-            Reference ref = new Book(); // to initialize variable
+            Reference ref = null;
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 line = Tool.bibtexToScandis(line);
-                if (line.startsWith("}")) line = safeSubstring(line, 1);
+                if (line.startsWith("}")) {
+                    line = safeSubstring(line, 1);
+                }
                 if (line.startsWith("@")) {
                     // Luodaan uusi reference
                     line = line.substring(1);
                     String[] split = line.split("\\{", 2);
                     String type = split[0]; // esim "Book"
-                    String id = split[1].substring(0, split[1].length()-2); // esim "Hass1994"
+                    String id = split[1].substring(0, split[1].length() - 2); // esim "Hass1994"
                     ref = new Book();
-                    if (type.equals("Article")) ref = new Article();
-                    if (type.equals("InProceedings")) ref = new InProceedings();
-                    if (type.equals("Proceedings")) ref = new Proceedings();
+                    if (type.equals("Article")) {
+                        ref = new Article();
+                    }
+                    if (type.equals("InProceedings")) {
+                        ref = new InProceedings();
+                    }
+                    if (type.equals("Proceedings")) {
+                        ref = new Proceedings();
+                    }
                     ref.setID(id);
                     Tool.addMissingProperties(ref);
                     references.add(ref);
-                } else if (!line.isEmpty()) {
+                } else if (!line.isEmpty() && ref != null) {
                     // Kirjataan yksi property ylös
                     String[] split = line.split("=", 2);
-                    String label = split[0].substring(0, split[0].length()-1);
-                    String value = safeSubstring(split[1], 2, split[1].length()-3);
+                    String label = split[0].substring(0, split[0].length() - 1);
+                    String value = safeSubstring(split[1], 2, split[1].length() - 3);
                     ref.setProperty(label, value);
                 }
             }
@@ -107,7 +112,7 @@ public class ReferenceController {
             ui.printLine("Importing from file was unsuccessful. Clearing database...");
             references.clear();
         }
-        
+
     }
 
     public ReferenceList getReferenceList() {

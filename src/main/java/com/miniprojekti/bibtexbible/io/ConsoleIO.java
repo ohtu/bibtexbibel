@@ -10,10 +10,6 @@ public class ConsoleIO implements IO {
         this.scanner = new Scanner(System.in);
     }
 
-//    public ConsoleIO(Scanner scanner) {
-//        this.scanner = scanner;
-//    }
-
     @Override
     public void write(String output) {
         System.out.println(output);

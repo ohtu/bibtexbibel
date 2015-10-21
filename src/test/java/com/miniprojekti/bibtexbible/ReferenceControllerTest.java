@@ -16,16 +16,15 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class ReferenceControllerTest {
-    
+
     private ReferenceController controller;
     private UI ui;
-    
+
     @Before
     public void setUp() {
         ui = mock(ConsoleUI.class);
         controller = new ReferenceController(ui);
     }
-    
 
     @Test
     public void createAllowsNewBookReferenceToBeAdded() {
@@ -33,7 +32,7 @@ public class ReferenceControllerTest {
         controller.create();
         assertEquals(1, controller.getReferenceList().list().size());
     }
-    
+
     @Test
     public void createAllowsNewArticleReferenceToBeAdded() {
         when(ui.selectReferenceType()).thenReturn(2);
@@ -41,7 +40,7 @@ public class ReferenceControllerTest {
         assertEquals(1, controller.getReferenceList().list().size());
         assertEquals(true, controller.getReferenceList().list().get(0) instanceof Article);
     }
-    
+
     @Test
     public void createAllowsNewProceedingsReferenceToBeAdded() {
         when(ui.selectReferenceType()).thenReturn(3);
@@ -49,14 +48,14 @@ public class ReferenceControllerTest {
         assertEquals(1, controller.getReferenceList().list().size());
         assertEquals(true, controller.getReferenceList().list().get(0) instanceof Proceedings);
     }
-    
+
     @Test
     public void listPrintsAllReferences() {
         //TODO
         controller.list();
         verify(ui).printReferences(anyList());
     }
-    
+
     @Test
     public void deleteDeletesReferenceFromReferenceList() {
         when(ui.selectReferenceType()).thenReturn(1);
@@ -67,14 +66,14 @@ public class ReferenceControllerTest {
         controller.delete();
         assertEquals(0, controller.getReferenceList().list().size());
     }
-    
+
     @Test
     public void testUnsuccesfulImport() {
         controller.importBibtex();
         when(ui.askFilename()).thenReturn("diohg8934rhoifdf.bib");
         verify(ui).printLine("Importing from file was unsuccessful. Clearing database...");
     }
-    
+
     @Test
     public void testSuccesfulImport() {
         when(ui.askFilename()).thenReturn("demodb.bib");
@@ -86,21 +85,23 @@ public class ReferenceControllerTest {
             int filledProperties = 0;
             for (String label : r.getPropertyDescriptions().keySet()) {
                 assertNotNull(r.getProperty(label)); // nullit korvattu tyhjilla
-                if (!r.getProperty(label).isEmpty()) filledProperties++;
+                if (!r.getProperty(label).isEmpty()) {
+                    filledProperties++;
+                }
             }
             assertTrue(filledProperties > 0); // kaikki kentat ei saa olla tyhjia
             assertTrue(!kaytetyt_idt.contains(r.getID()));
             kaytetyt_idt.add(r.getID()); // sama ID ei saa esiintya 2x
         }
     }
-    
+
     @Test
     public void testEmptyExport() {
         when(ui.askFilename()).thenReturn("tilapainentestitiedosto.txt");
         controller.export();
         verify(ui).printLine("There are no references to export");
     }
-    
+
     @Test
     public void testSuccesfulExport() {
         // import -> export -> clear -> import again -> compare to original
@@ -120,5 +121,5 @@ public class ReferenceControllerTest {
         File poista = new File("tilapainentiedosto.bib");
         poista.delete();
     }
-    
+
 }
