@@ -29,7 +29,7 @@ scenario "user can export BibTex", {
         line = br.readLine()
         line.equals("author = \"Kirjoittaja\", ").shouldBe true
         line = br.readLine()
-        //line.equals("").shouldBe true
+        line.equals("title = \"Titteli {\\\"A}kk{\\\"o}sill{\\\"a}\", ").shouldBe true
         line = br.readLine()
         line.equals("year = \"2015\", ").shouldBe true
         line = br.readLine()
