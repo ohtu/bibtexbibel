@@ -30,7 +30,6 @@ public class WriterTest {
             writer.close();
             BufferedReader br;
             br = new BufferedReader(new FileReader(mockFile));
-            StringBuilder sb = new StringBuilder();
             String line = br.readLine();
             assertEquals("Yksi kaksi kolme", line);
             line = br.readLine();
