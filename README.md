@@ -1,9 +1,9 @@
 # bibtexbible
 ohtu syksy 2015 miniprojekti
 
-* [Sprintti 1:](https://trello.com/b/VGq3K1EW/sprintin­1­backlog)
-* [Sprintti 2:](https://trello.com/b/apijcep2/sprintin­2­backlog)
-* [Sprintti 3:](https://trello.com/b/6fFskbpW/sprintin­3­backlog)
+* [Trello Sprintti 1](https://trello.com/b/VGq3K1EW/sprintin­1­backlog)
+* [Trello Sprintti 2](https://trello.com/b/apijcep2/sprintin­2­backlog)
+* [Trello Sprintti 3](https://trello.com/b/6fFskbpW/sprintin­3­backlog)
 * [Travis-CI](https://travis-ci.org/ohtu/bibtexbible)
 * [Coveralls](https://coveralls.io/github/ohtu/bibtexbible)
 * [Flowdock(vaatii tunnukset)](https://www.flowdock.com/app/miniprojekti/bibtexbible)
