@@ -38,3 +38,20 @@ scenario "user can export BibTex", {
         file.delete();
     }
 }
+
+scenario "user can't export an empty list", {
+    given 'application is initiliazed correctly', {
+        io = new StubIO("4", "testi", "0")
+        
+        rc = new ReferenceController()        
+        ui = new ConsoleUI(io,rc)
+        ui.run();
+    }
+    when 'correct commands are entered', {
+        prints = io.getPrints()
+    }
+    then 'user gets correct error message', {
+        String print = prints.toString()
+        print.contains("No references to export").shouldBe(true)
+    }
+}
