@@ -1,4 +1,3 @@
-import org.junit.contrib.java.lang.system.SystemOutRule;
 import com.miniprojekti.bibtexbible.logic.*;
 import com.miniprojekti.bibtexbible.io.StubIO;
 import com.miniprojekti.bibtexbible.io.IO;
